@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+//API auth portal
+Route::post('api/auth', 'AuthController');
+
+//API Group
+Route::group(['prefix' => 'api', 'middleware' => 'api_token'], function(){
+	Route::post('test', 'TestController@base');
+});
