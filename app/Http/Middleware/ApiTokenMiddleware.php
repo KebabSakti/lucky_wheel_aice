@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Login;
+use Carbon\Carbon;
 
 class ApiTokenMiddleware
 {
@@ -25,10 +26,10 @@ class ApiTokenMiddleware
         //table login
         $Login = new Login;
         $Login = $Login::where('username', $request->username)
-                    ->where('api_token', $request->api_token)
-                    ->orderBy('id','desc')
-                    ->limit(1)
-                    ->get();
+                       ->where('api_token', $request->api_token)
+                       ->orderBy('id','desc')
+                       ->limit(1)
+                       ->get();
 
         //cek apakah user sudah di autentikasi di server
         if(count($Login)){
