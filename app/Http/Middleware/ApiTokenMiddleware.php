@@ -3,8 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use User;
-use Login;
+use App\Login;
 
 class ApiTokenMiddleware
 {
@@ -17,15 +16,29 @@ class ApiTokenMiddleware
      */
     public function handle($request, Closure $next)
     {
+        //api token cannot be null
+        $request->validate([
+            'username' => 'bail|required',
+            'api_token' => 'required'
+        ]);
 
-        if($request->name != 'aice'){
-            return response()->json([
-                'return' => false,
-                'reason' => 'Not aice',
-                'data' => ''
-            ]);
+        //table login
+        $Login = new Login;
+        $Login = $Login::where('username', $request->username)
+                    ->where('api_token', $request->api_token)
+                    ->orderBy('id','desc')
+                    ->limit(1)
+                    ->get();
+
+        //cek apakah user sudah di autentikasi di server
+        if(count($Login)){
+            return $next($request);
         }
 
-        return $next($request);
+        return response()->json([
+            'response' => false,
+            'message' => 'Autentikasi user gagal',
+            'data' => ''
+        ]);
     }
 }
