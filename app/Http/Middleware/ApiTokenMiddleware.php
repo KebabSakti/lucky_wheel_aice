@@ -25,20 +25,19 @@ class ApiTokenMiddleware
 
         //table login
         $Login = new Login;
-        $Login = $Login::where('username', $request->username)
-                       ->where('api_token', $request->api_token)
-                       ->orderBy('id','desc')
-                       ->limit(1)
-                       ->get();
+        //get token berdasarkan username
+        $getLogin = $Login::where('username', $request->username)
+                          ->where('api_token', $request->api_token)
+                          ->first();
 
         //cek apakah user sudah di autentikasi di server
-        if(count($Login)){
+        if($getLogin != null){
             return $next($request);
         }
 
         return response()->json([
-            'response' => false,
-            'message' => 'Autentikasi user gagal',
+            'return' => false,
+            'message' => 'API Token mismatch',
             'data' => ''
         ]);
     }

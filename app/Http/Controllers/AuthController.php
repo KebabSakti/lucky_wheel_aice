@@ -31,38 +31,47 @@ class AuthController extends Controller
 
         //tabel user
         $User =  new User;
-        $User = $User::where('username', $request->username)->get();
+        $User = $User::where('username', $request->username)->first();
 
-        if(count($User)){
+        if($User != null){
             //cek password
-            if(Hash::check($request->password, $User[0]->password)){
+            if(Hash::check($request->password, $User->password)){
                 //password benar
                 $Login = new Login;
-
-                //set token login
-                $Login->username = $request->username;
-                $Login->api_token = Hash::make(mt_rand(1000,9999));
-                $Login->save();
+                $getLogin = $Login::where('username', $request->username)
+                               ->orderBy('id','desc')
+                               ->first();
+                
+                if($getLogin != null){
+                    //update token
+                    $getLogin->api_token = Hash::make(mt_rand(1000,9999));
+                    $getLogin->save();
+                }else{
+                    //set new token
+                    $Login->username = $request->username;
+                    $Login->api_token = Hash::make(mt_rand(1000,9999));
+                    $Login->save();
+                }
 
                 //oke
-                $response = true;
+                $return = true;
                 $message = '';
-                $data = $Login::where('username', $request->username)->orderBy('id','desc')->limit(1)->get();
+                $data = $Login::where('username', $request->username)->first();
             }else{
                 //passowrd salah
-                $response = false;
+                $return = false;
                 $message = 'Password salah';
                 $data = '';
             }
         }else{
             //user tidak ditemukan
-            $response = false;
+            $return = false;
             $message = 'User tidak ditemukan';
             $data = '';
         }
 
         return response()->json([
-            'response' => $response,
+            'return' => $return,
             'message' => $message,
             'data' => $data
         ]);
