@@ -24,4 +24,6 @@ Route::post('api/user/register', 'RegUserController');
 Route::group(['prefix' => 'api', 'middleware' => 'api_token'], function(){
 	//GET promotion data
 	Route::get('promo', 'PromoController');
+	//GET Dashboard data
+	Route::get('user/dashboard', 'DashboardController');
 });

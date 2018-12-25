@@ -6,6 +6,7 @@ use App\Product;
 use App\Outlet;
 use App\User;
 use App\Promotion;
+use App\Result;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,6 +21,21 @@ class DatabaseSeeder extends Seeder
         $user = new User;
         $outlet = new Outlet;
 
+        for($i=1;$i<=10;$i++){
+            $Result = new Result;
+            
+            $Result->session = 123456;
+            $Result->no_telp = '007';
+            $Result->kode_asset = 'OTL1659';
+            $Result->beli = 10;
+            $Result->drawn = $i;
+            $Result->menang = 1;
+            $Result->kalah = 0;
+            $Result->hadiah = 400;
+            $Result->save();
+        }
+
+        /*
         for($i=1;$i<=5;$i++){
             $Promotion = new Promotion;
             $Promotion->urutan = $i;
