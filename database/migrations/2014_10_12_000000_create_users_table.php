@@ -17,7 +17,8 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('username');
             $table->string('password');
-            $table->enum('level',['User','Admin']);
+            $table->enum('level', ['User','Admin']);
+            $table->enum('status', ['ON','OFF']);
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

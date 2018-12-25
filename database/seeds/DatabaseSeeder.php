@@ -5,6 +5,7 @@ use Illuminate\Database\Seeder;
 use App\Product;
 use App\Outlet;
 use App\User;
+use App\Promotion;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,8 +18,16 @@ class DatabaseSeeder extends Seeder
     {
         $product = new Product;
         $user = new User;
-        //$outlet = new Outlet;
+        $outlet = new Outlet;
 
+        for($i=1;$i<=5;$i++){
+            $Promotion = new Promotion;
+            $Promotion->urutan = $i;
+            $Promotion->file = 'PATH';
+            $Promotion->save();
+        }
+
+        /*
         
         $product->kode = mt_rand(100,999);
         $product->nama = 'Mango';
@@ -40,5 +49,7 @@ class DatabaseSeeder extends Seeder
 	     	$outlet->lng = mt_rand() / mt_getrandmax();
 	     	$outlet->save();
      	}
+
+        */
     }
 }

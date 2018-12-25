@@ -17,8 +17,11 @@ Route::get('/', function () {
 
 //API auth portal
 Route::post('api/auth', 'AuthController');
+//API reg user outlet
+Route::post('api/user/register', 'RegUserController');
 
 //API Group
 Route::group(['prefix' => 'api', 'middleware' => 'api_token'], function(){
-	Route::post('test', 'TestController@base');
+	//GET promotion data
+	Route::get('promo', 'PromoController');
 });

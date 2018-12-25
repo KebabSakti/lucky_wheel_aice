@@ -17,12 +17,6 @@ class AuthController extends Controller
      */
     public function __invoke(Request $request)
     {
-
-        $data = [
-            'username' => $request->username,
-            'password' => $request->password
-        ];
-
         //validasi input
         $request->validate([
             'username' => 'bail|required',
@@ -31,7 +25,9 @@ class AuthController extends Controller
 
         //tabel user
         $User =  new User;
-        $User = $User::where('username', $request->username)->first();
+        $User = $User::where('username', $request->username)
+                     ->where('status', 'ON')
+                     ->first();
 
         if($User != null){
             //cek password
