@@ -77,7 +77,7 @@ class GameController extends Controller
     	$Result->menang = $request->menang;
     	$Result->kalah = $request->kalah;
     	$Result->hadiah = $request->hadiah;
-    	$Result->foto = public_path().'/images/content/'.$request->foto;
+    	$Result->foto = $request->file('foto')->store('public');
     	$Result->save();
 
     	return response()->json([
