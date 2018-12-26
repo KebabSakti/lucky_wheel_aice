@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         for($i=1;$i<=10;$i++){
             $Result = new Result;
             
-            $Result->session = 123456;
+            $Result->session = 2919891;
             $Result->no_telp = '007';
             $Result->kode_asset = 'OTL1659';
             $Result->beli = 10;
