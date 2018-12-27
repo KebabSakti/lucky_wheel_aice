@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Facades\ActivityLogClass;
+use Carbon\Carbon;
 use App\Customer;
 use App\Result;
 use App\Foto;
@@ -68,6 +69,11 @@ class GameController extends Controller
     		'foto' => 'required'
     	]);
 
+    	$file = $request->file('foto');
+    	$fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+    	//upload image
+    	$file->move(public_path('images'), $fileName);
+
     	$Result = new Result;
     	$Result->session = 'SES'.mt_rand(100000,999999);
     	$Result->no_telp = $request->no_telp;
@@ -77,7 +83,7 @@ class GameController extends Controller
     	$Result->menang = $request->menang;
     	$Result->kalah = $request->kalah;
     	$Result->hadiah = $request->hadiah;
-    	$Result->foto = $request->file('foto')->store('public');
+    	$Result->foto = $fileName;
     	$Result->save();
 
     	return response()->json([

@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class TestController extends Controller
 {
     public function base(Request $request){
 
-    	$file = $request->file('pics')->store('public');
+    	$fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $request->file('pics')->getClientOriginalExtension();
+    	$file = $request->file('pics')->move(public_path('images'), $fileName);
 
     	return response()->json([
     		'return' => true,
-    		'data' => asset('storage/ES7W9rGWKvFPGALoluqmnUs0PQQXXzcdjn6OMiI8.png')
+    		'data' => asset('images/'.$fileName)
     	]);
 
     }
