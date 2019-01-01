@@ -17,10 +17,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $product = new Product;
+        
         $user = new User;
         $outlet = new Outlet;
 
+        for($i=0;$i<100;$i++){
+            $product = new Product;
+            $product->kode = mt_rand(10000,99999);
+            $product->nama = 'Product_'.$i;
+            $product->harga = mt_rand(5000, 20000);
+            $product->save();
+        }
+
+        /*
         for($i=1;$i<=10;$i++){
             $Result = new Result;
             
@@ -33,7 +42,7 @@ class DatabaseSeeder extends Seeder
             $Result->kalah = 0;
             $Result->hadiah = 400;
             $Result->save();
-        }
+        }*/
 
         /*
         for($i=1;$i<=5;$i++){

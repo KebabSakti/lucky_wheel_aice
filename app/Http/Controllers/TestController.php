@@ -7,6 +7,12 @@ use Carbon\Carbon;
 
 class TestController extends Controller
 {
+	var $request;
+
+	public function __construct(){
+		$this->request = new Request;
+	}
+
     public function base(Request $request){
 
     	$fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $request->file('pics')->getClientOriginalExtension();

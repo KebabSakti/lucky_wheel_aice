@@ -24,6 +24,10 @@ Route::post('api/register', 'RegUserController');
 Route::group(['prefix' => 'api', 'middleware' => 'api_token'], function(){
 	//get promotion data
 	Route::post('promo', 'PromoController');
+	//get all product data
+	Route::post('product/all', 'ProductController@all');
+	//get specific product
+	Route::post('product/show/{kode}', 'ProductController@show');
 	//get Dashboard data
 	Route::post('dashboard', 'DashboardController');
 	//Register user game

@@ -67,7 +67,7 @@ class AuthController extends Controller
         }
 
         return response()->json([
-            'return' => $return,
+            'status' => $return,
             'message' => $message,
             'data' => $data
         ]);
