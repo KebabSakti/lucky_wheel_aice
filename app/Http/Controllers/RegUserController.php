@@ -78,7 +78,7 @@ class RegUserController extends Controller
                     'User & Outlet',
                     'Tambah',
                     'Gagal', 
-                    'Username: ['.$request->username.'], outlet: ['.$request->nama_toko.'] gagal ditambahakan'
+                    'Username: ['.$request->username.'], outlet: ['.$request->nama_toko.'] gagal ditambahkan'
                 );
 
                 $return = false;
