@@ -90,7 +90,7 @@ class RegUserController extends Controller
         return response()->json([
             'status' => $return,
             'message' => $message,
-            'data' => $data
+            'data' => ''
         ]);
     }
 }

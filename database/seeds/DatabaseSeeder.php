@@ -29,20 +29,20 @@ class DatabaseSeeder extends Seeder
             $product->save();
         }
 
-        /*
+        
         for($i=1;$i<=10;$i++){
             $Result = new Result;
             
             $Result->session = 2919891;
             $Result->no_telp = '007';
-            $Result->kode_asset = 'OTL1659';
+            $Result->kode_asset = 'OTL4230';
             $Result->beli = 10;
             $Result->drawn = $i;
             $Result->menang = 1;
             $Result->kalah = 0;
             $Result->hadiah = 400;
             $Result->save();
-        }*/
+        }
 
         /*
         for($i=1;$i<=5;$i++){

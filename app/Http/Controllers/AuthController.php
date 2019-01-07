@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Login;
+use Validator;
 
 class AuthController extends Controller
 {
@@ -18,52 +19,71 @@ class AuthController extends Controller
     public function __invoke(Request $request)
     {
         //validasi input
-        $request->validate([
-            'username' => 'bail|required',
+        $validator = Validator::make($request->all(), [
+            'username' => 'required',
             'password' => 'required'
         ]);
 
-        //tabel user
-        $User =  new User;
-        $User = $User::where('username', $request->username)
-                     ->where('status', 'ON')
-                     ->first();
+        if($validator->fails()){
+            $return = false;
+            $message = 'Cek kembali username dan password yang di input';
+            $data = '';
+        }else{
+            //tabel user
+            $User =  new User;
+            $User = $User::where('username', $request->username)
+                         ->where('status', 'ON')
+                         ->first();
 
-        if($User != null){
-            //cek password
-            if(Hash::check($request->password, $User->password)){
-                //password benar
-                $Login = new Login;
-                $getLogin = $Login::where('username', $request->username)
-                               ->orderBy('id','desc')
-                               ->first();
-                
-                if($getLogin != null){
-                    //update token
-                    $getLogin->api_token = Hash::make(mt_rand(1000,9999));
-                    $getLogin->save();
+            if($User != null){
+                //cek password
+                if(Hash::check($request->password, $User->password)){
+                    //password benar
+                    $Login = new Login;
+                    $getLogin = $Login::where('username', $request->username)
+                                   ->orderBy('id','desc')
+                                   ->first();
+                    
+                    if($getLogin != null){
+                        //update token
+                        $getLogin->api_token = Hash::make(mt_rand(1000,9999));
+                        $getLogin->save();
+                    }else{
+                        //set new token
+                        $Login->username = $request->username;
+                        $Login->api_token = Hash::make(mt_rand(1000,9999));
+                        $Login->save();
+                    }
+
+                    //oke
+                    $return = true;
+                    $message = '';
+                    /*
+                    $data = $Login::where('username', $request->username)
+                                  ->with(['outlet' => function($query){
+                                        $query->select('username','kode_asset');
+                            }])->get();
+                    */
+                    $data = $Login::with('outlet')
+                                  ->where('username', $request->username)
+                                  ->first();
+                    $data = collect([
+                        'username' => $data->username,
+                        'api_token' => $data->api_token,
+                        'kode_asset' => $data->outlet->kode_asset
+                    ]);
                 }else{
-                    //set new token
-                    $Login->username = $request->username;
-                    $Login->api_token = Hash::make(mt_rand(1000,9999));
-                    $Login->save();
+                    //passowrd salah
+                    $return = false;
+                    $message = 'Password salah';
+                    $data = '';
                 }
-
-                //oke
-                $return = true;
-                $message = '';
-                $data = $Login::where('username', $request->username)->first();
             }else{
-                //passowrd salah
+                //user tidak ditemukan
                 $return = false;
-                $message = 'Password salah';
+                $message = 'User tidak ditemukan';
                 $data = '';
             }
-        }else{
-            //user tidak ditemukan
-            $return = false;
-            $message = 'User tidak ditemukan';
-            $data = '';
         }
 
         return response()->json([

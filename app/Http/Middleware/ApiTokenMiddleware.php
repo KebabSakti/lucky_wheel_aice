@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use App\Login;
 use Carbon\Carbon;
+use Validator;
 
 class ApiTokenMiddleware
 {
@@ -18,26 +19,35 @@ class ApiTokenMiddleware
     public function handle($request, Closure $next)
     {
         //api token cannot be null
-        $request->validate([
-            'username' => 'bail|required',
-            'api_token' => 'required'
+        $validator = Validator::make($request->all(), [
+          'api_token' => 'required'
         ]);
 
-        //table login
-        $Login = new Login;
-        //get token berdasarkan username
-        $getLogin = $Login::where('username', $request->username)
-                          ->where('api_token', $request->api_token)
-                          ->first();
+        if($validator->fails()){
+          $return = false;
+          $message = 'Akses tidak di izinkan';
+          $data = '';
+        }else{
+          //table login
+          $Login = new Login;
+          //get token berdasarkan username
+          $getLogin = $Login::where('username', $request->username)
+                            ->where('api_token', $request->api_token)
+                            ->first();
 
-        //cek apakah user sudah di autentikasi di server
-        if($getLogin != null){
-            return $next($request);
+          //cek apakah user sudah di autentikasi di server
+          if($getLogin != null){
+              return $next($request);
+          }else{
+            $return = false;
+            $message = 'Akses tidak di izinkan';
+            $data = '';
+          }
         }
 
         return response()->json([
-            'return' => false,
-            'message' => 'API Token mismatch',
+            'status' => $return,
+            'message' => $message,
             'data' => ''
         ]);
     }

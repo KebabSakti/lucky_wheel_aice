@@ -49,7 +49,7 @@ class DashboardController extends Controller
         );
 
         return response()->json([
-            'return' => true,
+            'status' => true,
             'message' => '',
             'data' => $data
         ]);
