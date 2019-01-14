@@ -50,7 +50,7 @@ class GameController extends Controller
         );
 
     	return response()->json([
-    		'return' => $return,
+    		'status' => $return,
     		'message' => $message,
     		'data' => $data
     	]);
@@ -87,7 +87,7 @@ class GameController extends Controller
     	$Result->save();
 
     	return response()->json([
-    		'return' => true,
+    		'status' => true,
     		'message' => '',
     		'data' => ''
     	]);

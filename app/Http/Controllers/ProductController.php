@@ -8,7 +8,7 @@ use App\Product;
 class ProductController extends Controller
 {
     public function all(Request $request){
-    	$Product = Product::simplePaginate(10);
+    	$Product = Product::all();
 
     	if(count($Product)){
     		$return = true;
@@ -21,7 +21,7 @@ class ProductController extends Controller
     	}
 
     	return response()->json([
-    		'return' => $return,
+    		'status' => $return,
     		'message' => $message,
     		'data' => $data
     	]);
@@ -41,7 +41,7 @@ class ProductController extends Controller
     	}
 
     	return response()->json([
-    		'return' => $return,
+    		'status' => $return,
     		'message' => $message,
     		'data' => $data
     	]);
