@@ -9,45 +9,49 @@ use Carbon\Carbon;
 use App\Customer;
 use App\Result;
 use App\Foto;
+use Validator;
 
 class GameController extends Controller
 {
     public function register(Request $request){
 
-    	$request->validate([
-    		'no_telp' => 'bail|required|numeric',
-    		'nama' => 'required|alpha'
-    	]);
+        $validator = Validator::make($request->all(), [
+            'no_telp' => 'unique:customers'
+        ]);
 
-    	//tambahkan data customer
-    	$Customer = new Customer;
-    	$Customer->no_telp = $request->no_telp;
-    	$Customer->nama = $request->nama;
-    	$Customer->save();
+        if(!$validator->fails()){
+            
+        }else{
+            //tambahkan data customer
+            $Customer = new Customer;
+            $Customer->no_telp = $request->no_telp;
+            $Customer->nama = $request->nama;
+            $Customer->save();
 
-    	$getCustomer = Customer::where('no_telp', $request->no_telp)->first();
+            $getCustomer = Customer::where('no_telp', $request->no_telp)->first();
 
-    	if($getCustomer != null){
-    		$return = true;
-    		$message = 'No. Telp: '.$request->no_telp.' berhasil ditambahkan';
-    		$data = $getCustomer;
-    		//log
-    		$result = 'Berhasil';
-    	}else{
-    		$return = false;
-    		$message = 'No. Telp: '.$request->no_telp.' gagal ditambahkan';
-    		$data = '';
-    		//log
-    		$result = 'Gagal';
-    	}
+            if($getCustomer != null){
+                $return = true;
+                $message = 'No. Telp: '.$request->no_telp.' berhasil ditambahkan';
+                $data = $getCustomer;
+                //log
+                $result = 'Berhasil';
+            }else{
+                $return = false;
+                $message = 'No. Telp: '.$request->no_telp.' gagal ditambahkan';
+                $data = '';
+                //log
+                $result = 'Gagal';
+            }
 
-    	//save log to db
-        ActivityLogClass::addLog(
-            'Customer',
-            'Tambah',
-            $result, 
-            $message
-        );
+            //save log to db
+            ActivityLogClass::addLog(
+                'Customer',
+                'Tambah',
+                $result, 
+                $message
+            );   
+        }
 
     	return response()->json([
     		'status' => $return,

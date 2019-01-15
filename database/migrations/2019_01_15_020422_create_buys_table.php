@@ -19,7 +19,7 @@ class CreateBuysTable extends Migration
             $table->string('no_telp');
             $table->string('kode_asset');
             $table->string('kode_produk');
-            $table->strign('qty_produk');
+            $table->string('qty_produk');
             $table->softDeletes();
             $table->timestamps();
         });
