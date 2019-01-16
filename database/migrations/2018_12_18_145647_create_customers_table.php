@@ -15,7 +15,7 @@ class CreateCustomersTable extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('no_tlp');
+            $table->string('no_telp');
             $table->string('nama');
             $table->timestamp('sp_prize');
             $table->softDeletes();

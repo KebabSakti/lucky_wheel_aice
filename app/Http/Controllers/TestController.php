@@ -7,14 +7,17 @@ use Carbon\Carbon;
 
 class TestController extends Controller
 {
+    /*
 	var $request;
 
 	public function __construct(){
 		$this->request = new Request;
 	}
+    */
 
     public function base(Request $request){
 
+        /*
     	$fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $request->file('pics')->getClientOriginalExtension();
     	$file = $request->file('pics')->move(public_path('images'), $fileName);
 
@@ -22,6 +25,11 @@ class TestController extends Controller
     		'return' => true,
     		'data' => asset('images/'.$fileName)
     	]);
+        */
+
+        return response()->json([
+            'message' => $request->products[1]." ".$request->qty_products[1]." ".$request->session
+        ]);
 
     }
 }

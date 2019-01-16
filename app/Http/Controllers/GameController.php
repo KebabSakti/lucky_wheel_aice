@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\Customer;
 use App\Result;
 use App\Foto;
+use App\Buy;
 use Validator;
 
 class GameController extends Controller
@@ -16,12 +17,12 @@ class GameController extends Controller
     public function register(Request $request){
 
         $validator = Validator::make($request->all(), [
-            'no_telp' => 'unique:customers'
+            'no_telp' => 'required|unique:customers'
         ]);
 
-        if(!$validator->fails()){
+        if($validator->fails()){
             $return = true;
-            $message = 'No. Telp: '.$request->no_telp.' gagal ditambahkan';
+            $message = 'No. Telp: '.$request->no_telp.' sudah terdaftar';
             $data = '';
             //log
             $result = 'Gagal';
@@ -49,6 +50,26 @@ class GameController extends Controller
             }   
         }
 
+        //upload foto
+        $fileName = Carbon::now()->timestamp.uniqid() . '.' . $request->file('foto')->getClientOriginalExtension();
+        $file = $request->file('foto')->move(public_path('images'), $fileName);
+        //simpan info foto ke db
+        $Foto = new Foto;
+        $Foto->session = $request->session;
+        $Foto->foto = $fileName;
+        $Foto->save();
+
+        //simpan data product dibeli ke db
+        for($i=0;$i<count($request->products);$i++){
+            $Buy = new Buy;
+            $Buy->session = $request->session;
+            $Buy->no_telp = $request->no_telp;
+            $Buy->kode_asset = $request->kode_asset;
+            $Buy->kode_produk = $request->products[$i];
+            $Buy->qty_produk = $request->qty_products[$i];
+            $Buy->save();
+        }
+
         //save log to db
         ActivityLogClass::addLog(
             'Customer',
@@ -60,7 +81,7 @@ class GameController extends Controller
     	return response()->json([
     		'status' => $return,
     		'message' => $message,
-    		'data' => $data
+    		'data' => ''
     	]);
     }
 
