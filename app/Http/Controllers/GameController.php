@@ -20,7 +20,11 @@ class GameController extends Controller
         ]);
 
         if(!$validator->fails()){
-            
+            $return = true;
+            $message = 'No. Telp: '.$request->no_telp.' gagal ditambahkan';
+            $data = '';
+            //log
+            $result = 'Gagal';
         }else{
             //tambahkan data customer
             $Customer = new Customer;
@@ -42,16 +46,16 @@ class GameController extends Controller
                 $data = '';
                 //log
                 $result = 'Gagal';
-            }
-
-            //save log to db
-            ActivityLogClass::addLog(
-                'Customer',
-                'Tambah',
-                $result, 
-                $message
-            );   
+            }   
         }
+
+        //save log to db
+        ActivityLogClass::addLog(
+            'Customer',
+            'Tambah',
+            $result, 
+            $message
+        );
 
     	return response()->json([
     		'status' => $return,
