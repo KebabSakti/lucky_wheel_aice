@@ -28,7 +28,7 @@ class TestController extends Controller
         */
 
         return response()->json([
-            'message' => $request->products[1]." ".$request->qty_products[1]." ".$request->session
+            'message' => print_r($request->products, true)." ".print_r($request->qty_products, true)
         ]);
 
     }
