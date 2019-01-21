@@ -28,7 +28,7 @@ class TestController extends Controller
         */
 
         return response()->json([
-            'message' => print_r($request->products, true)." ".print_r($request->qty_products, true)
+            'message' => print_r($request->hadiah, true)." ".print_r($request->beli, true)
         ]);
 
     }

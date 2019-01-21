@@ -28,6 +28,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'api_token'], function(){
 	Route::post('product/all', 'ProductController@all');
 	//get specific product
 	Route::post('product/show/{kode}', 'ProductController@show');
+	//get prizes data
+	Route::post('prize/get', 'PrizeController');
 	//get Dashboard data
 	Route::post('dashboard', 'DashboardController');
 	//Register user game

@@ -7,6 +7,7 @@ use App\Outlet;
 use App\User;
 use App\Promotion;
 use App\Result;
+use App\Prizes;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,6 +19,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         
+        /*
         $user = new User;
         $outlet = new Outlet;
 
@@ -42,6 +44,14 @@ class DatabaseSeeder extends Seeder
             $Result->kalah = 0;
             $Result->hadiah = 400;
             $Result->save();
+        }
+        */
+
+        /*
+        for($i=0;$i<4;i++){
+            $Prizes = new Prizes;
+            $Prizes->kode_asset('OTL4230');
+            $Prizes->
         }
 
         /*

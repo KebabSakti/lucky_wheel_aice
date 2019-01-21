@@ -9,7 +9,7 @@ class Prize extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = [
-    	'kode_aseet','kode_produk'
-    ];
+    public function product(){
+    	return $this->hasOne('App\Product','kode','kode_produk');
+    }
 }
