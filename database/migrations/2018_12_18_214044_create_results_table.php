@@ -22,7 +22,7 @@ class CreateResultsTable extends Migration
             $table->integer('drawn');
             $table->boolean('menang');
             $table->boolean('kalah');
-            $table->string('hadiah');
+            $table->string('hadiah')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
