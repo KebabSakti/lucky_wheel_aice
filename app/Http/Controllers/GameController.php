@@ -87,37 +87,22 @@ class GameController extends Controller
 
     public function play(Request $request){
 
-    	$request->validate([
-    		'no_telp' => 'bail|required|numeric',
-    		'kode_asset' => 'bail|required',
-    		'beli' => 'bail|required|numeric',
-    		'drawn' => 'bail|required|numeric',
-    		'menang' => 'bail|required|numeric',
-    		'kalah' => 'bail|required|numeric',
-    		'hadiah' => 'bail|required',
-    		'foto' => 'required'
-    	]);
-
-    	$file = $request->file('foto');
-    	$fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-    	//upload image
-    	$file->move(public_path('images'), $fileName);
-
-    	$Result = new Result;
-    	$Result->session = 'SES'.mt_rand(100000,999999);
-    	$Result->no_telp = $request->no_telp;
-    	$Result->kode_asset = $request->kode_asset;
-    	$Result->beli = $request->beli;
-    	$Result->drawn = $request->drawn;
-    	$Result->menang = $request->menang;
-    	$Result->kalah = $request->kalah;
-    	$Result->hadiah = $request->hadiah;
-    	$Result->foto = $fileName;
-    	$Result->save();
+        for($i=0; $i<count($request->beli); $i++){
+            $Result = new Result;
+            $Result->session = $request->session;
+            $Result->no_telp = $request->no_telp;
+            $Result->kode_asset = $request->kode_asset;
+            $Result->beli = $request->beli[$i];
+            $Result->drawn = $request->drawn[$i];
+            $Result->menang = $request->menang[$i];
+            $Result->kalah = $request->kalah[$i];
+            $Result->hadiah = $request->hadiah[$i];
+            $Result->save();
+        }
 
     	return response()->json([
     		'status' => true,
-    		'message' => '',
+    		'message' => 'Data berhasil tersimpan',
     		'data' => ''
     	]);
     }
