@@ -11,9 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//login page
+Route::get('/', 'AppAuthController@index');
+//login function
+Route::post('/', 'AppAuthController@login');
 
 //API auth portal
 Route::post('api/auth', 'AuthController');

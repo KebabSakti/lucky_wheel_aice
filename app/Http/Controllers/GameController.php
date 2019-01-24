@@ -52,7 +52,7 @@ class GameController extends Controller
 
         //upload foto
         $fileName = Carbon::now()->timestamp.uniqid() . '.' . $request->file('foto')->getClientOriginalExtension();
-        $file = $request->file('foto')->move(public_path('images'), $fileName);
+        $file = $request->file('foto')->move('../public/images/', $fileName);
         //simpan info foto ke db
         $Foto = new Foto;
         $Foto->session = $request->session;

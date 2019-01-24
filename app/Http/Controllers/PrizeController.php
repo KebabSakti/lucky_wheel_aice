@@ -21,13 +21,13 @@ class PrizeController extends Controller
                                     $query->select('kode','nama');
                                 }])->get();
 
-        if(count($Prize)){
+        if(count($Prize) > 0){
             $return = true;
             $message = '';
             $data = $Prize;
         }else{
             $return = false;
-            $message = "Hadiah untuk outlet anda belum di set";
+            $message = 'Hadiah untuk outlet anda belum di set';
             $data = '';
         }
 

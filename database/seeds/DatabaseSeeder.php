@@ -8,6 +8,7 @@ use App\User;
 use App\Promotion;
 use App\Result;
 use App\Prizes;
+use App\AppUser;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,6 +20,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         
+        $AppUser = new AppUser;
+        $AppUser->username = 'famoost';
+        $AppUser->password = bcrypt('buyun');
+        $AppUser->level = 'administrator';
+        $AppUser->save();
+
         /*
         $user = new User;
         $outlet = new Outlet;
