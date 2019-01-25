@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         
         $AppUser = new AppUser;
         $AppUser->username = 'famoost';
-        $AppUser->password = bcrypt('buyun');
+        $AppUser->password = bcrypt('buyung');
         $AppUser->level = 'administrator';
         $AppUser->save();
 

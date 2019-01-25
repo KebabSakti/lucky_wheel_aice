@@ -14,7 +14,9 @@
 //login page
 Route::get('/', 'AppAuthController@index');
 //login function
-Route::post('/', 'AppAuthController@login');
+Route::post('/', ['uses' => 'AppAuthController@login', 'as' => 'login']);
+//dashboard
+Route::get('/dashboard', ['uses' => 'AppDashboardController@index', 'as' => 'app.index']);
 
 //API auth portal
 Route::post('api/auth', 'AuthController');
