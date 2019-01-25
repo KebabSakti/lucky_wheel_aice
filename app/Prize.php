@@ -12,4 +12,8 @@ class Prize extends Model
     public function product(){
     	return $this->hasOne('App\Product','kode','kode_produk');
     }
+
+    public function outlet(){
+    	return $this->belongsTo('App\Outlet', 'kode_asset');
+    }
 }

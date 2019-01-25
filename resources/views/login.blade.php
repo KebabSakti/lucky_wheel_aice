@@ -64,6 +64,7 @@
                         </div>
                         <div class="login-form">
                             <form action="{{ route('login') }}" method="post">
+                                @csrf
                                 <div class="form-group">
                                     <label>Username</label>
                                     <input class="au-input au-input--full" type="text" name="username" placeholder="Username" required="true">

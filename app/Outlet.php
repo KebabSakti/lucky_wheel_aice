@@ -17,4 +17,8 @@ class Outlet extends Model
     protected $fillable = [
         'nama_toko','lat','lng'
     ];
+
+    public function prizes(){
+    	return $this->hasMany('App\Prize','kode_asset','kode_asset');
+    }
 }
