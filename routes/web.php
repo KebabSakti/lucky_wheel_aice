@@ -20,11 +20,17 @@ Route::get('/logout', ['uses' => 'AppAuthController@logout', 'as' => 'logout']);
 
 Route::group(['middleware' => 'app_auth'], function(){
 	//dashboard
-	Route::get('/dashboard', ['uses' => 'AppDashboardController@index', 'as' => 'app.index']);
+	Route::get('/dashboard', ['uses' => 'AppDashboardController@index', 'as' => 'dashboard.index']);
 	//show setting
 	Route::get('/prize', ['uses' => 'PrizeSettingController@prize', 'as' => 'app.prize']);
 	//add setting
 	Route::post('/prize/add', ['uses' => 'PrizeSettingController@add', 'as' => 'app.addPrize']);
+	//del setting
+	Route::delete('/prize/delete', ['uses' => 'PrizeSettingController@delete', 'as' => 'app.delPrize']);
+	//outlet resource
+	Route::resource('outlets', 'OutletResourceController')->only([
+		'index','show','edit','update'
+	]);
 });
 
 //API auth portal

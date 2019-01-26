@@ -18,6 +18,10 @@ class Outlet extends Model
         'nama_toko','lat','lng'
     ];
 
+    public function getCreatedAtAttribute($value){
+
+    }
+
     public function prizes(){
     	return $this->hasMany('App\Prize','kode_asset','kode_asset')->with('product');
     }

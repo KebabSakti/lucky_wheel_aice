@@ -28,8 +28,30 @@ class PrizeSettingController extends Controller
 
     public function add(Request $request){
         $validation = $request->validate([
-            'username' => 'required',
-            'password' => 'required'
+            'kode_asset' => 'required',
+            'kode_produk' => 'required'
         ]);
+
+        //maksimal 12 item sebagai hadiah
+        if(count($request->kode_produk) > 12){
+        	return redirect()->back()->with('alert', 'Gagal. Maksimal 12 item sebagai hadiah outlet');
+        }
+
+        //simpan setting
+        for($i=0; $i<count($request->kode_produk); $i++){
+        	$Prize = new Prize;
+        	$Prize->kode_asset = $request->kode_asset;
+        	$Prize->kode_produk = $request->kode_produk[$i];
+        	$Prize->save();
+        }
+
+        return redirect()->back()->with('alert', 'Berhasil. Setting hadiah ditambahkan');
     }
+
+    public function delete(Request $request){
+    	//delete from prize table
+    	$Prize = Prize::where('kode_asset', $request->kode_asset)->forceDelete();
+
+    	return redirect()->back()->with('alert', 'Berhasil. Setting telah dihapus');
+    }	
 }

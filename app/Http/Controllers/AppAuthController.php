@@ -27,7 +27,7 @@ class AppAuthController extends Controller
                 Session::put('level', $AppUser['level']);
                 Session::put('auth_token', mt_rand(100000,999999));
 
-                return redirect()->route('app.index');
+                return redirect()->route('dashboard.index');
             }else{
                 return redirect()->back()->with('alert','Password salah');
             }

@@ -4,7 +4,7 @@
 <head>
     <!-- Required meta tags-->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="keywords" content="">
@@ -29,6 +29,11 @@
     <link href="../vendor/slick/slick.css" rel="stylesheet" media="all">
     <link href="../vendor/select2/select2.min.css" rel="stylesheet" media="all">
     <link href="../vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+
+    <!-- Data table -->
+    <!--
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-bootgrid/1.3.1/jquery.bootgrid.min.css" rel="stylesheet" media="all">
+    -->
 
     <!-- Main CSS-->
     <link href="../css/theme.css" rel="stylesheet" media="all">
@@ -75,23 +80,23 @@
                 <div class="container-fluid">
                     <ul class="navbar-mobile__list list-unstyled">
                         <li class="has-sub">
-                            <a class="js-arrow" href="{{ route('app.index') }}">
+                            <a class="js-arrow" href="{{ route('dashboard.index') }}">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
                         <li>
                             <a href="chart.html">
-                                <i class="fas fa-chart-bar"></i>Results</a>
+                                <i class="fas fa-chart-bar"></i>Game</a>
                         </li>
                         <li>
                             <a href="table.html">
-                                <i class="fas fa-table"></i>Products</a>
+                                <i class="fas fa-table"></i>Produk</a>
                         </li>
                         <li>
                             <a href="form.html">
                                 <i class="far fa-check-square"></i>User</a>
                                 <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                                     <li>
-                                        <a href="login.html">Game</a>
+                                        <a href="login.html">Android</a>
                                     </li>
                                     <li>
                                         <a href="register.html">Web</a>
@@ -100,13 +105,13 @@
                         </li>
                         <li>
                             <a href="map.html">
-                                <i class="fas fa-map-marker-alt"></i>Outlets</a>
+                                <i class="fas fa-map-marker-alt"></i>Outlet</a>
                                 <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                                     <li>
-                                        <a href="login.html">Lists</a>
+                                        <a href="{{route('outlets.index')}}">List</a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('app.prize') }}">Prize Setting</a>
+                                        <a href="{{ route('app.prize') }}">Setting Hadiah</a>
                                     </li>
                                 </ul>
                         </li>
@@ -127,23 +132,23 @@
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
                         <li class="active has-sub">
-                            <a class="js-arrow" href="{{ route('app.index') }}">
+                            <a class="js-arrow" href="{{ route('dashboard.index') }}">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
                         <li>
                             <a href="chart.html">
-                                <i class="fas fa-chart-bar"></i>Results</a>
+                                <i class="fas fa-chart-bar"></i>Game</a>
                         </li>
                         <li>
                             <a href="table.html">
-                                <i class="fas fa-table"></i>Products</a>
+                                <i class="fas fa-table"></i>Produk</a>
                         </li>
                         <li>
                             <a class="js-arrow" href="#">
                                 <i class="far fa-check-square"></i>User</a>
                                 <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                                     <li>
-                                        <a href="login.html">Game</a>
+                                        <a href="login.html">Android</a>
                                     </li>
                                     <li>
                                         <a href="register.html">Web</a>
@@ -152,13 +157,13 @@
                         </li>
                         <li>
                             <a class="js-arrow" href="#">
-                                <i class="fas fa-map-marker-alt"></i>Outlets</a>
+                                <i class="fas fa-map-marker-alt"></i>Outlet</a>
                                 <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                                     <li>
-                                        <a href="login.html">Lists</a>
+                                        <a href="{{route('outlets.index')}}">List</a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('app.prize') }}">Prize Setting</a>
+                                        <a href="{{ route('app.prize') }}">Setting Hadiah</a>
                                     </li>
                                 </ul>
                         </li>
@@ -190,20 +195,32 @@
 
             <!-- MAIN CONTENT-->
             <div class="main-content">
-                <div class="section__content section__content--p30">
-                    <div class="container-fluid">
 
-                        @yield('content')
+                @if ($errors->any() || Session::has('alert'))
+                    <div class="section__content section__content--p30">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="alert alert-info alert-dismissible fade show">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                        @if($errors->any())
+                                            @foreach ($errors->all() as $error)
+                                                {{ $error }} <br>
+                                            @endforeach
+                                        @endif
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="copyright">
-                                    <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                                        @if(Session::has('alert'))
+                                            {{ Session::get('alert') }}
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endif
+
+                @yield('content')
+
             </div>
             <!-- END MAIN CONTENT-->
             <!-- END PAGE CONTAINER-->
@@ -217,20 +234,22 @@
     <script src="../vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="../vendor/bootstrap-4.1/bootstrap.min.js"></script>
     <!-- Vendor JS       -->
-    <script src="../vendor/slick/slick.min.js">
-    </script>
+    <script src="../vendor/slick/slick.min.js"></script>
     <script src="../vendor/wow/wow.min.js"></script>
     <script src="../vendor/animsition/animsition.min.js"></script>
-    <script src="../vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
-    </script>
+    <script src="../vendor/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
     <script src="../vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="../vendor/counter-up/jquery.counterup.min.js">
-    </script>
+    <script src="../vendor/counter-up/jquery.counterup.min.js"></script>
     <script src="../vendor/circle-progress/circle-progress.min.js"></script>
     <script src="../vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
     <script src="../vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="../vendor/select2/select2.min.js">
-    </script>
+    <script src="../vendor/select2/select2.min.js"></script>
+
+    <!-- Data table -->
+    <!--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bootgrid/1.3.1/jquery.bootgrid.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bootgrid/1.3.1/jquery.bootgrid.fa.min.js"></script>
+    -->
 
     <!-- Main JS-->
     <script src="../js/main.js"></script>

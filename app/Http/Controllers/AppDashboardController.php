@@ -34,7 +34,7 @@ class AppDashboardController extends Controller
         $Result = Result::where('drawn', 0)
         				->get();
 
-    	return view('app.index', ['result' => array(
+    	return view('dashboard.index', ['result' => array(
     		'played' => $played, 
     		'spin' => $spin, 
     		'win' => $win, 
