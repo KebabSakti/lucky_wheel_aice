@@ -19,6 +19,6 @@ class Outlet extends Model
     ];
 
     public function prizes(){
-    	return $this->hasMany('App\Prize','kode_asset','kode_asset');
+    	return $this->hasMany('App\Prize','kode_asset','kode_asset')->with('product');
     }
 }

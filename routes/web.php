@@ -12,13 +12,20 @@
 */
 
 //login page
-Route::get('/', 'AppAuthController@index');
+Route::get('/', ['uses' => 'AppAuthController@index', 'as' => 'login']);
 //login function
 Route::post('/', ['uses' => 'AppAuthController@login', 'as' => 'login']);
-//dashboard
-Route::get('/dashboard', ['uses' => 'AppDashboardController@index', 'as' => 'app.index']);
-//prize setting
-Route::get('/prize', ['uses' => 'PrizeSettingController@prize', 'as' => 'app.prize']);
+//logout function
+Route::get('/logout', ['uses' => 'AppAuthController@logout', 'as' => 'logout']);
+
+Route::group(['middleware' => 'app_auth'], function(){
+	//dashboard
+	Route::get('/dashboard', ['uses' => 'AppDashboardController@index', 'as' => 'app.index']);
+	//show setting
+	Route::get('/prize', ['uses' => 'PrizeSettingController@prize', 'as' => 'app.prize']);
+	//add setting
+	Route::post('/prize/add', ['uses' => 'PrizeSettingController@add', 'as' => 'app.addPrize']);
+});
 
 //API auth portal
 Route::post('api/auth', 'AuthController');

@@ -35,4 +35,10 @@ class AppAuthController extends Controller
             return redirect()->back()->with('alert','User tidak ditemukan');
         }
     }
+
+    public function logout(Request $request){
+        $request->session()->flush();
+
+        return redirect()->route('login');
+    }
 }
