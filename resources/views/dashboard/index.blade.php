@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('page-tittle')
+Dashboard
+@endsection
+
+@section('nav-dashboard')
+active
+@endsection
+
 @section('content')
 
 <div class="section__content section__content--p30">

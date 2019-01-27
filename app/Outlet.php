@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 class Outlet extends Model
 {
@@ -19,7 +20,7 @@ class Outlet extends Model
     ];
 
     public function getCreatedAtAttribute($value){
-
+        return Carbon::createFromFormat('Y-m-d H:i:s', $value)->format('d-m-Y H:i:s');
     }
 
     public function prizes(){

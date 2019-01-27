@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -31,4 +31,12 @@ class User extends Authenticatable
         'password'
     ];
     */
+
+    public function getCreatedAtAttribute($value){
+        return Carbon::createFromFormat('Y-m-d H:i:s', $value)->format('d-m-Y H:i:s');
+    }
+
+    public function outlet(){
+        return $this->hasOne('App\Outlet','username','username');
+    }
 }

@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('page-tittle')
+    Outlet
+@endsection
+
+@section('nav-outlet')
+    active
+@endsection
+
 @section('modal_title')
 Data Outlet
 @endsection
@@ -35,7 +43,6 @@ Data Outlet
                                 <th>Lat</th>
                                 <th>Lng</th>
                                 <th>Tgl. Add</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,17 +58,19 @@ Data Outlet
                                         <td>{{$k['nama_toko']}}</td>
                                         <td>{{$k['lat']}}</td>
                                         <td>{{$k['lng']}}</td>
-                                        <td>{{}}</td>
+                                        <td>{{$k['created_at']}}</td>
+                                        <!--
                                         <td>
                                             <div class="table-data-feature">
                                                 <button class="item" data-toggle="tooltip" data-placement="top" title="Detail">
                                                     <i class="zmdi zmdi-info text-primary"></i>
                                                 </button>
-                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                <a href="{{route('outlets.show', ['kode_asset' => $k['kode_asset']])}}" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
                                                     <i class="zmdi zmdi-edit text-warning"></i>
-                                                </button>
+                                                </a>
                                             </div>
                                         </td>
+                                        -->
                                     </tr>
                                     <tr class="spacer"></tr>
                                 @endforeach

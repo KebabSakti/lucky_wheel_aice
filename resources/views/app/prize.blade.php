@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('page-tittle')
+    Prize
+@endsection
+
+@section('nav-prize')
+    active
+@endsection
+
 @section('modal_title')
 Add New Setting
 @endsection

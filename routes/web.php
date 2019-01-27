@@ -31,6 +31,10 @@ Route::group(['middleware' => 'app_auth'], function(){
 	Route::resource('outlets', 'OutletResourceController')->only([
 		'index','show','edit','update'
 	]);
+	//produk resource
+    Route::resource('produk', 'ProdukResourceController');
+    //android user resource
+    Route::resource('user/android', 'AndroUserResourceController');
 });
 
 //API auth portal

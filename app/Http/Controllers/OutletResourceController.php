@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Outlet;
-use Carbon;
+use Carbon\Carbon;
 
 class OutletResourceController extends Controller
 {
@@ -16,7 +16,7 @@ class OutletResourceController extends Controller
     public function index()
     {
         $Outlet = Outlet::all();
-        dd(Carbon::now());
+        //dd($Outlet->toArray());
         return view('outlets.index', ['outlets' => $Outlet->toArray()]);
     }
 
@@ -49,7 +49,9 @@ class OutletResourceController extends Controller
      */
     public function show($id)
     {
-        //
+        $Outlet = Outlet::where('kode_asset', $id)->first();
+
+        return view('outlets.show', ['outlet' => $Outlet->toArray()]);
     }
 
     /**

@@ -21,8 +21,8 @@ class DatabaseSeeder extends Seeder
     {
         
         $AppUser = new AppUser;
-        $AppUser->username = 'famoost';
-        $AppUser->password = bcrypt('buyung');
+        $AppUser->username = 'admin';
+        $AppUser->password = bcrypt('admin1989');
         $AppUser->level = 'administrator';
         $AppUser->save();
 

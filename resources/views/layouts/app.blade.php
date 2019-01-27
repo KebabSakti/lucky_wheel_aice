@@ -10,7 +10,7 @@
     <meta name="keywords" content="">
 
     <!-- Title Page-->
-    <title>Dashboard</title>
+    <title>@yield('page-tittle') : Lucky Aice</title>
 
     <!-- Fontfaces CSS-->
     <link href="../css/font-face.css" rel="stylesheet" media="all">
@@ -65,8 +65,8 @@
             <div class="header-mobile__bar">
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
-                        <a class="logo" href="index.html">
-                            <img src="images/icon/logo.png" alt="CoolAdmin" />
+                        <a class="logo" href="#">
+                            <img src="" alt="Lucky Aice" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
@@ -79,41 +79,47 @@
             <nav class="navbar-mobile">
                 <div class="container-fluid">
                     <ul class="navbar-mobile__list list-unstyled">
-                        <li class="has-sub">
+                        <li class="has-sub my-nav @yield('nav-dashboard')">
                             <a class="js-arrow" href="{{ route('dashboard.index') }}">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
-                        <li>
-                            <a href="chart.html">
+                        <li class="my-nav @yield('nav-game')">
+                            <a href="#">
                                 <i class="fas fa-chart-bar"></i>Game</a>
                         </li>
-                        <li>
-                            <a href="table.html">
+                        <li class="my-nav @yield('nav-produk')">
+                            <a href="{{route('produk.index')}}">
                                 <i class="fas fa-table"></i>Produk</a>
                         </li>
-                        <li>
-                            <a href="form.html">
+                        <li class="my-nav @yield('nav-user-andro')">
+                            <a href="#">
                                 <i class="far fa-check-square"></i>User</a>
                                 <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                                    <li>
-                                        <a href="login.html">Android</a>
+                                    <li class="my-nav @yield('nav-user-andro')">
+                                        <a href="{{route('android.index')}}">Android</a>
                                     </li>
-                                    <li>
-                                        <a href="register.html">Web</a>
+                                    <!--
+                                    <li class="my-nav">
+                                        <a href="#">Web</a>
                                     </li>
+                                    -->
                                 </ul>
                         </li>
                         <li>
-                            <a href="map.html">
+                            <a href="#">
                                 <i class="fas fa-map-marker-alt"></i>Outlet</a>
                                 <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                                    <li>
+                                    <li class="my-nav @yield('nav-outlet')">
                                         <a href="{{route('outlets.index')}}">List</a>
                                     </li>
-                                    <li>
+                                    <li class="my-nav @yield('nav-prize')">
                                         <a href="{{ route('app.prize') }}">Setting Hadiah</a>
                                     </li>
                                 </ul>
+                        </li>
+                        <li class="my-nav">
+                            <a href="{{ route('logout') }}">
+                                <i class="fas fa-power-off"></i>Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -125,49 +131,51 @@
         <aside class="menu-sidebar d-none d-lg-block">
             <div class="logo">
                 <a href="#">
-                    <img src="images/icon/logo.png" alt="Cool Admin" />
+                    <img src="" alt="Lucky Aice" />
                 </a>
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li class="active has-sub">
+                        <li class="has-sub my-nav @yield('nav-dashboard')">
                             <a class="js-arrow" href="{{ route('dashboard.index') }}">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
-                        <li>
-                            <a href="chart.html">
+                        <li class="my-nav @yield('nav-game')">
+                            <a href="#">
                                 <i class="fas fa-chart-bar"></i>Game</a>
                         </li>
-                        <li>
-                            <a href="table.html">
+                        <li class="my-nav @yield('nav-produk')">
+                            <a href="{{route('produk.index')}}">
                                 <i class="fas fa-table"></i>Produk</a>
                         </li>
                         <li>
                             <a class="js-arrow" href="#">
                                 <i class="far fa-check-square"></i>User</a>
                                 <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                                    <li>
-                                        <a href="login.html">Android</a>
+                                    <li class="my-nav @yield('nav-user-andro')">
+                                        <a href="{{route('android.index')}}">Android</a>
                                     </li>
+                                    <!--
                                     <li>
-                                        <a href="register.html">Web</a>
+                                        <a href="#">Web</a>
                                     </li>
+                                    -->
                                 </ul>
                         </li>
                         <li>
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-map-marker-alt"></i>Outlet</a>
                                 <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                                    <li>
+                                    <li class="my-nav @yield('nav-outlet')">
                                         <a href="{{route('outlets.index')}}">List</a>
                                     </li>
-                                    <li>
+                                    <li class="my-nav @yield('nav-prize')">
                                         <a href="{{ route('app.prize') }}">Setting Hadiah</a>
                                     </li>
                                 </ul>
                         </li>
-                        <li>
+                        <li class="my-nav">
                             <a href="{{ route('logout') }}">
                                 <i class="fas fa-power-off"></i>Logout</a>
                         </li>
