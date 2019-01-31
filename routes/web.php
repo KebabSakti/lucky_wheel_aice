@@ -23,6 +23,8 @@ Route::group(['middleware' => 'app_auth'], function(){
 	Route::get('/dashboard', ['uses' => 'AppDashboardController@index', 'as' => 'dashboard.index']);
 	//show setting
 	Route::get('/prize', ['uses' => 'PrizeSettingController@prize', 'as' => 'app.prize']);
+	//create setting
+	Route::get('prize/create', ['uses' => 'PrizeSettingController@create', 'as' => 'app.create']);
 	//add setting
 	Route::post('/prize/add', ['uses' => 'PrizeSettingController@add', 'as' => 'app.addPrize']);
 	//del setting

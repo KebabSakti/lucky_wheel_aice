@@ -26,6 +26,22 @@ class PrizeSettingController extends Controller
         ]);
     }
 
+    public function create(){
+        $data = Outlet::with('prizes')->whereHas('prizes')->get();
+
+        $Outlet = Outlet::whereNotIn('kode_asset', function($q){
+            $q->select('kode_asset')->from('prizes');
+        })->get();
+
+        $Product = Product::all();
+        
+        return view('app.create', [
+            'data' => $data->toArray(), 
+            'outlet' => $Outlet->toArray(), 
+            'product' => $Product->toArray()
+        ]);
+    }
+
     public function add(Request $request){
         $validation = $request->validate([
             'kode_asset' => 'required',

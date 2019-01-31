@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('kode');
             $table->string('nama');
             $table->string('harga');
+            $table->boolean('is_prize');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -47,6 +47,7 @@ class ProdukResourceController extends Controller
         $Product->kode = mt_rand(100000,999999);
         $Product->nama = $request->nama;
         $Product->harga = $request->harga;
+        $Product->is_prize = (!empty($request->is_prize)) ? 1:NULL;
         $Product->save();
 
         return redirect()->back()->with('alert','Berhasil. Produk telah ditambahkan');
@@ -93,6 +94,7 @@ class ProdukResourceController extends Controller
         $Product = Product::where('kode', $id)->first();
         $Product->nama = $request->nama;
         $Product->harga = $request->harga;
+        $Product->is_prize = (!empty($request->is_prize)) ? 1:NULL;
         $Product->save();
 
         return redirect()->back()->with('alert','Berhasil. Produk telah di update');

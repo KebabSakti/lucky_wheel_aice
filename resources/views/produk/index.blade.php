@@ -25,6 +25,7 @@
                             <tr>
                                 <th>Nama Produk</th>
                                 <th>Harga</th>
+                                <th>Set Hadiah</th>
                                 <th>Tgl. Add</th>
                                 <th></th>
                             </tr>
@@ -40,6 +41,7 @@
                                     <tr class="tr-shadow">
                                         <td style="vertical-align: middle;">{{$k['nama']}}</td>
                                         <td>{{$k['harga']}}</td>
+                                        <td>{{($k['is_prize'] == 1) ? 'Ya':'Tidak'}}</td>
                                         <td>{{$k['created_at']}}</td>
                                         <td>
                                             <div class="table-data-feature">
