@@ -23,15 +23,14 @@
     </div>
     <div class="row form-group">
         <div class="col col-md-3">
-            <label for="kode_produk[]" class=" form-control-label">Prizes List</label>
+            <label class="form-control-label">Daftar Hadiah</label>
         </div>
         <div class="col-12 col-md-9">
-            <select name="kode_produk[]" id="select" class="form-control select2-prizes" multiple="multiple" required="true">
-                @foreach($product as $product)
-                    <option value="{{$product['kode']}}">{{$product['nama']}}</option>
-                @endforeach
-            </select>
+            <button type="button" class="btn btn-success btn-sm add-hadiah" data-ajx-action="{{route('utilities.get_produk')}}"><i class="fa fa-plus"></i> Tambah</button>
         </div>
+    </div>
+    <div class="daftar-hadiah-kontainer">
+        
     </div>
     <div class="row form-group">
         <div class="col col-md-3">

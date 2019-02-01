@@ -22,6 +22,42 @@ $(function(){
 		maximumSelectionLength: 12
 	});
 
+	//add prizes btn func
+	var produk = [];
+	var percentage = [];
+	$('body').on('click','.add-hadiah', function(){
+		var cont = $('.daftar-hadiah-kontainer');
+		var action = $(this).data('ajx-action');
+
+		console.log(produk);
+
+		$.ajax({
+			url : action,
+			data : {kode:produk, percentage:percentage},
+			method : 'GET'
+		}).done(function(data){
+			cont.append(data);
+		});
+	});
+
+	$('body').on('change keyup', '.prize-kode, .prize-percent', function(){
+		produk = [];
+		percentage = [];
+
+		var item = $('.prize-kode');
+		var percent = $('.prize-percent');
+
+		item.each(function(){
+			produk.push($(this).children("option:selected").val());
+		});
+
+		percent.each(function(){
+			percentage.push($(this).val());
+		});
+
+		console.log(produk+' '+percentage);
+	});
+
 	//auto dismiss alert msg
 	if($('.alert').length > 0){
 		setTimeout(function() {

@@ -69,5 +69,5 @@ class PrizeSettingController extends Controller
     	$Prize = Prize::where('kode_asset', $request->kode_asset)->forceDelete();
 
     	return redirect()->back()->with('alert', 'Berhasil. Setting telah dihapus');
-    }	
+    }
 }
