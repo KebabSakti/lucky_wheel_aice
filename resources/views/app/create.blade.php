@@ -26,7 +26,7 @@
             <label class="form-control-label">Daftar Hadiah</label>
         </div>
         <div class="col-12 col-md-9">
-            <button type="button" class="btn btn-success btn-sm add-hadiah" data-ajx-action="{{route('utilities.get_produk')}}"><i class="fa fa-plus"></i> Tambah</button>
+            <button type="button" class="btn btn-success btn-sm add-hadiah" data-ajx-action="{{route('utilities.get_produk')}}">Tambah</button>
         </div>
     </div>
     <div class="daftar-hadiah-kontainer">

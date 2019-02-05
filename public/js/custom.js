@@ -1,6 +1,7 @@
 $(function(){
 
 	//winning percentage
+	/*
 	if($('.select2-prizes').length > 0){
 		var elem = $('select[name="kode_produk[]"]');
 		var percentage = $('.win-percentage');
@@ -21,42 +22,67 @@ $(function(){
 	$('.select2-prizes').select2({
 		maximumSelectionLength: 12
 	});
+	*/
 
 	//add prizes btn func
 	var produk = [];
 	var percentage = [];
 	$('body').on('click','.add-hadiah', function(){
+		var btn = $(this);
 		var cont = $('.daftar-hadiah-kontainer');
 		var action = $(this).data('ajx-action');
-
-		console.log(produk);
 
 		$.ajax({
 			url : action,
 			data : {kode:produk, percentage:percentage},
-			method : 'GET'
+			method : 'GET',
+			beforeSend : function(){
+				btn.prop('disabled', true).text('Loading..');
+			}
 		}).done(function(data){
 			cont.append(data);
+
+			btn.prop('disabled', false).text('Tambah');
 		});
 	});
 
-	$('body').on('change keyup', '.prize-kode, .prize-percent', function(){
-		produk = [];
+	//remove prizes btn
+	$('body').on('click', '.prize-hapus', function(){
+		var winPercentage = $('.win-percentage');
+
+		$(this).parent().parent().remove();
+
+		winPercentage.text(getPercentageValue());
+	});
+
+	$('body').on('keyup change', '.prize-percent', function(e){
+		var element = $(this);
+		var winPercentage = $('.win-percentage');
+		var percentageValue = getPercentageValue();
+
+		if(percentageValue > 100){
+			alert('Persentase kemenangan tidak boleh melebihi 100%');
+			winPercentage.text(100);
+		}else{
+			winPercentage.text(percentageValue);
+		}
+	});
+
+	function getPercentageValue(){
 		percentage = [];
 
-		var item = $('.prize-kode');
-		var percent = $('.prize-percent');
-
-		item.each(function(){
-			produk.push($(this).children("option:selected").val());
+		$('.prize-percent').each(function(){
+			percentage.push(parseInt($(this).val()));
 		});
 
-		percent.each(function(){
-			percentage.push($(this).val());
-		});
+		if(percentage.length > 0){
+			percentageValue = percentage.reduce(function(t,n){return t+n});
+		}else{
+			percentageValue = 0;
+		}
 
-		console.log(produk+' '+percentage);
-	});
+		return percentageValue;
+	}
 
 	//auto dismiss alert msg
 	if($('.alert').length > 0){

@@ -10,7 +10,7 @@
     	</select>
     </div>
     <div class="col-2 col-md-2">
-        <input type="number" name="persentase[]" class="form-control prize-percent" value="0">
+        <input type="number" name="persentase[]" class="form-control prize-percent" value="0" min="0" max="100">
     </div>
     <div class="col-1 col-md-1">
         <button type="button" class="btn btn-danger btn-sm prize-hapus"><i class="fa fa-trash"></i></button>

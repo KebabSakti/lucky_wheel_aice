@@ -33,7 +33,9 @@
                             </tr>
                         </thead>
                         <tbody>
-
+                            @php
+                                $kode = array();
+                            @endphp
                             @if(!count($data))
                                 <tr class="tr-shadow">
                                     <td colspan="8" class="text-center">Belum ada setting tersimpan</td>
@@ -47,7 +49,19 @@
                                         <td>{{$k['lng']}}</td>
                                         <td>
                                             @foreach($k['prizes'] as $p)
-                                                <span class="block-email" style="margin-bottom: 3px;">{{ $p['product']['nama'] }}</span>
+
+                                                @php
+                                                    $kode[] = $p['product']['nama'];
+                                                @endphp
+
+                                            @endforeach
+
+                                            @php
+                                                $kode = array_unique($kode);
+                                            @endphp
+
+                                            @foreach($kode as $z)
+                                                <span class="block-email" style="margin-bottom: 3px;">{{$z}}</span>
                                             @endforeach
                                         </td>
                                         <td class="text-center"><span class="text-primary">{{floor(count($k['prizes'])/12*100)}}</span> %</td>
