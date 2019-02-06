@@ -23,9 +23,9 @@ class AppDashboardController extends Controller
         //total game dimainkan
         $played = (count($Result)) ? count($Result->groupBy('session')) : 0;
         //total spin
-        $spin = (count($Result)) ? count($Result) : 0;
+        $spin = (count($Result)) ? $Result->where('drawn', '>', 0)->count() : 0;
         //total win
-        $win = (count($Result)) ? $Result->sum('menang') : 0;
+        $win = (count($Result)) ? $Result->where('menang','>', 0)->count() : 0;
         //total lost
         $lost = (count($Result)) ? $Result->sum('kalah') : 0;
         //total user uniq bermain

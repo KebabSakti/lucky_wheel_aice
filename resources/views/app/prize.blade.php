@@ -20,7 +20,7 @@
                         <i class="zmdi zmdi-plus"></i>add item</a>
                 </div>
                 <div class="table-responsive table-responsive-data2">
-                    <table class="table table-data2">
+                    <table class="table table-data2 table-striped table-bordered dt">
                         <thead>
                             <tr>
                                 <th>Outlet</th>
@@ -86,7 +86,6 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr class="spacer"></tr>
                                 @endforeach
                             @endif
 

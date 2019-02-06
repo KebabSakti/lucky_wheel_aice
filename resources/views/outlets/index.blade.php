@@ -35,7 +35,7 @@ Data Outlet
                     <h3 class="title-5 m-b-35">List Outlet</h3>
                 </div>
                 <div class="table-responsive table-responsive-data2">
-                    <table class="table table-data2">
+                    <table class="table table-data2 table-striped table-bordered dt">
                         <thead>
                             <tr>
                                 <th>Username</th>
@@ -72,7 +72,6 @@ Data Outlet
                                         </td>
                                         -->
                                     </tr>
-                                    <tr class="spacer"></tr>
                                 @endforeach
                             @endif
 

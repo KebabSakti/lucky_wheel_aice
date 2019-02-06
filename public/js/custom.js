@@ -123,5 +123,12 @@ $(function(){
 			modalMain.modal('toggle');
         });
     });
+
+    var table = $('.dt').DataTable({
+    	dom: 'Bfrtip',
+    	buttons: [
+        	'copy', 'excel', 'pdf','print'
+    	]
+    });
 	
 });

@@ -30,11 +30,11 @@ class DashboardController extends Controller
         //total game dimainkan
         $played = (count($Result)) ? count($Result->groupBy('session')) : 0;
         //total spin
-        $spin = (count($Result)) ? count($Result)-1 : 0;
+        $spin = (count($Result)) ? $Result->where('drawn', '>', 0)->count() : 0;
         //total win
-        $win = (count($Result)) ? $Result->count('menang')-1 : 0;
+        $win = (count($Result)) ? $Result->where('menang','>', 0)->count() : 0;
         //total lost
-        $lost = (count($Result)) ? $Result->count('kalah') : 0;
+        $lost = (count($Result)) ? $Result->where('kalah','>', 0)->count() : 0;
         //total user uniq bermain
         $uniq = (count($Result)) ? count($Result->groupBy('no_telp')) : 0;
 
