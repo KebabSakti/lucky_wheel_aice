@@ -20,8 +20,8 @@ class CreateResultsTable extends Migration
             $table->string('kode_asset');
             $table->integer('beli');
             $table->integer('drawn');
-            $table->boolean('menang');
-            $table->boolean('kalah');
+            $table->integer('menang');
+            $table->integer('kalah');
             $table->string('hadiah')->nullable();
             $table->softDeletes();
             $table->timestamps();

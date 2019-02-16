@@ -73,8 +73,8 @@ class PrizeSettingController extends Controller
         }
 
         //maksimal 12 item sebagai hadiah
-        if(count($kode) > 12){
-        	return redirect()->back()->with('alert', 'Gagal. Persentase kemenangan melebihi 100%');
+        if(count($kode) > 11){
+        	return redirect()->back()->with('alert', 'Gagal. Maksimal 11 item');
         }
 
         //simpan setting

@@ -1,7 +1,6 @@
 $(function(){
 
 	//winning percentage
-	/*
 	if($('.select2-prizes').length > 0){
 		var elem = $('select[name="kode_produk[]"]');
 		var percentage = $('.win-percentage');
@@ -17,12 +16,6 @@ $(function(){
 			percentage.text(Math.floor(winPercentage));
 		}
 	}
-
-	//select prizes
-	$('.select2-prizes').select2({
-		maximumSelectionLength: 12
-	});
-	*/
 
 	//add prizes btn func
 	var produk = [];
@@ -52,9 +45,10 @@ $(function(){
 
 		$(this).parent().parent().remove();
 
-		winPercentage.text(getPercentageValue());
+		//winPercentage.text(getPercentageValue());
 	});
 
+	/*
 	$('body').on('keyup change', '.prize-percent', function(e){
 		var element = $(this);
 		var winPercentage = $('.win-percentage');
@@ -83,6 +77,7 @@ $(function(){
 
 		return percentageValue;
 	}
+	*/
 
 	//auto dismiss alert msg
 	if($('.alert').length > 0){
@@ -121,14 +116,56 @@ $(function(){
 			modalBody.html(data)
 
 			modalMain.modal('toggle');
+
+			//dinamic func
+			dynaFunction();
         });
     });
 
-    var table = $('.dt').DataTable({
-    	dom: 'Bfrtip',
-    	buttons: [
-        	'copy', 'excel', 'pdf','print'
-    	]
-    });
+	//dt init
+    if($('.dt').length > 0){
+    	var table = $('.dt').DataTable({
+	    	dom: 'Bfrtip',
+	    	buttons: [
+	        	'copy', 'excel', 'pdf','print'
+	    	]
+	    });
+    }
+
+    function dynaFunction(){
+    	//select prizes
+		if($('.select2-prizes').length > 0){
+			var selectPrizes = $('.select2-prizes');
+
+			//init
+			selectPrizes.select2({
+				maximumSelectionLength: 11,
+				allowClear : true,
+				placeholder : 'Set Hadiah'
+			});
+
+			//get data on selected
+			selectPrizes.on('select2:select select2:unselect', function(e){
+				var cont = $('.daftar-hadiah-kontainer');
+				var action = cont.data('ajx-action');
+
+				kode_produk = e.params.data.id;
+				nama_produk = e.params.data.text;
+
+				if(e.type == "select2:select"){
+					$.ajax({
+						url : action,
+						data : {kode:kode_produk, nama:nama_produk},
+						method : 'GET'
+					}).done(function(ret){
+						cont.append(ret);
+					});
+				}else{
+					elm = $('#'+kode_produk);
+					elm.remove();
+				}
+			});
+		}
+    }
 	
 });
