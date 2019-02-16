@@ -23,7 +23,7 @@ class PrizeSettingController extends Controller
             $q->select('kode_asset')->from('prizes');
         })->get();
 
-        $Product = Product::all();
+        $Product = Product::where('is_prize', 1)->get();
 
         //dd($data->toArray()[0]['prizes']);
 
@@ -46,7 +46,7 @@ class PrizeSettingController extends Controller
             $q->select('kode_asset')->from('prizes');
         })->get();
 
-        $Product = Product::all();
+        $Product = Product::where('is_prize', 1)->get();
         
         return view('app.create', [
             'data' => $data->toArray(), 
@@ -59,29 +59,21 @@ class PrizeSettingController extends Controller
         
         $validation = $request->validate([
             'kode_asset' => 'required',
-            'kode_produk' => 'required'
+            'kode_produk' => 'required',
+            'prize_stock' => 'required'
         ]);
-        
-        $kode = array();
-        //siapkan data produk untuk setting hadiah
-        for($i=0; $i<count($request->kode_produk); $i++){
-            $p = ceil($request->persentase[$i] / 100 * 12);
-            
-            for($s=0; $s<$p; $s++){
-                $kode[] = $request->kode_produk[$i];
-            }
-        }
 
-        //maksimal 12 item sebagai hadiah
-        if(count($kode) > 11){
+        //maksimal 11 item sebagai hadiah
+        if(count($request->kode_produk) > 11){
         	return redirect()->back()->with('alert', 'Gagal. Maksimal 11 item');
         }
 
         //simpan setting
-        for($i=0; $i<count($kode); $i++){
+        for($i=0; $i<count($request->kode_produk); $i++){
         	$Prize = new Prize;
         	$Prize->kode_asset = $request->kode_asset;
-        	$Prize->kode_produk = $kode[$i];
+        	$Prize->kode_produk = $request->kode_produk[$i];
+            $Prize->prize_stock = $request->prize_stock[$i];
         	$Prize->save();
         }
 

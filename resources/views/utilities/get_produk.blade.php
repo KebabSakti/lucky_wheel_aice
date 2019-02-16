@@ -9,7 +9,7 @@
                 <input type="text" class="form-control" value="{{$nama_produk}}" readonly="true">
             </div>
             <div class="col-4 col-md-4">
-                <input type="number" name="stock_prize[]" class="form-control prize-percent" value="0" min="0">
+                <input type="number" name="prize_stock[]" class="form-control prize-percent" value="0" min="0" required="true">
             </div>
         </div>
     </div>

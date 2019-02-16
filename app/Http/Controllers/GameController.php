@@ -10,6 +10,7 @@ use App\Customer;
 use App\Result;
 use App\Foto;
 use App\Buy;
+use App\Prize;
 use Validator;
 
 class GameController extends Controller
@@ -98,6 +99,22 @@ class GameController extends Controller
             $Result->kalah = $request->kalah[$i];
             $Result->hadiah = $request->hadiah[$i];
             $Result->save();
+
+            //kurangi stock jika menang
+            if($request->menang[$i] > 0){
+
+                $Result = Result::where('hadiah', $request->hadiah[$i])->orderBy('id','desc')->first();
+
+                $nama_produk = $request->hadiah[$i];
+                $Prize = Prize::where('kode_produk', function($q) use ($nama_produk) {
+                    $q->from('products')
+                      ->select('kode_produk')
+                      ->where('nama', $nama_produk);
+                })->first();
+
+                $Prize->prize_stock -= $Result->menang;
+                $Prize->save();
+            }
         }
 
     	return response()->json([

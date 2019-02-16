@@ -31,7 +31,7 @@
             <!--
             <button type="button" class="btn btn-success btn-sm add-hadiah" data-ajx-action="{{route('utilities.get_produk')}}">Tambah</button>
             -->
-            <select name="kode_produk[]" class="form-control select2-prizes" required="true" multiple="multiple">
+            <select class="form-control select2-prizes" required="true" multiple="multiple">
                 @foreach($product as $produk)
                     <option value="{{$produk['kode']}}">{{$produk['nama']}}</option>
                 @endforeach

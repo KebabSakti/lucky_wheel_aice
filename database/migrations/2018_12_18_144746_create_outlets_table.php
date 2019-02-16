@@ -20,6 +20,7 @@ class CreateOutletsTable extends Migration
             $table->text('nama_toko');
             $table->float('lat', 8, 6);
             $table->float('lng', 9, 6);
+            $table->integer('percentage')->default(5);
             $table->softDeletes();
             $table->timestamps();
         });

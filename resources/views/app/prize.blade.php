@@ -28,7 +28,6 @@
                                 <th>Lat</th>
                                 <th>Lng</th>
                                 <th>Prize</th>
-                                <th>Persentase</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -64,7 +63,6 @@
                                                 <span class="block-email" style="margin-bottom: 3px;">{{$z}}</span>
                                             @endforeach
                                         </td>
-                                        <td class="text-center"><span class="text-primary">{{floor(count($k['prizes'])/12*100)}}</span> %</td>
                                         <td>
                                             <div class="table-data-feature">
                                                 <!--
