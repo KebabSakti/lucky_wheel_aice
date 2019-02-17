@@ -89,31 +89,35 @@ class GameController extends Controller
     public function play(Request $request){
 
         for($i=0; $i<count($request->beli); $i++){
+            $beli = (empty($request->beli[$i])) ? 0:$request->beli[$i];
+            $drawn = (empty($request->drawn[$i])) ? 0:$request->drawn[$i];
+            $menang = (empty($request->menang[$i])) ? 0:$request->menang[$i];
+            $kalah = (empty($request->kalah[$i])) ? 0:$request->kalah[$i];
+            $hadiah = (empty($request->hadiah[$i])) ? '':$request->hadiah[$i];
+
             $Result = new Result;
             $Result->session = $request->session;
             $Result->no_telp = $request->no_telp;
             $Result->kode_asset = $request->kode_asset;
-            $Result->beli = $request->beli[$i];
-            $Result->drawn = $request->drawn[$i];
-            $Result->menang = $request->menang[$i];
-            $Result->kalah = $request->kalah[$i];
-            $Result->hadiah = $request->hadiah[$i];
+            $Result->beli = $beli;
+            $Result->drawn = $drawn;
+            $Result->menang = $menang;
+            $Result->kalah = $kalah;
+            $Result->hadiah = $hadiah;
             $Result->save();
 
             //kurangi stock jika menang
-            if($request->menang[$i] > 0){
-
-                $Result = Result::where('hadiah', $request->hadiah[$i])->orderBy('id','desc')->first();
-
-                $nama_produk = $request->hadiah[$i];
-                $Prize = Prize::where('kode_produk', function($q) use ($nama_produk) {
+            if($hadiah != 'Zonk'){
+                if($hadiah != ''){
+                    $Prize = Prize::where('kode_produk', function($q) use ($hadiah) {
                     $q->from('products')
-                      ->select('kode_produk')
-                      ->where('nama', $nama_produk);
-                })->first();
+                      ->select('kode')
+                      ->where('nama', $hadiah);
+                    })->first();
 
-                $Prize->prize_stock -= $Result->menang;
-                $Prize->save();
+                    $Prize->prize_stock -= 1;
+                    $Prize->save();
+                }
             }
         }
 

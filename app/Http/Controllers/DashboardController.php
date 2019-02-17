@@ -32,9 +32,9 @@ class DashboardController extends Controller
         //total spin
         $spin = (count($Result)) ? $Result->where('drawn', '>', 0)->count() : 0;
         //total win
-        $win = (count($Result)) ? $Result->where('menang','>', 0)->count() : 0;
+        $win = (count($Result)) ? $Result->whereNotIn('hadiah', ['Zonk',''])->count() : 0;
         //total lost
-        $lost = (count($Result)) ? $Result->where('kalah','>', 0)->count() : 0;
+        $lost = (count($Result)) ? $Result->where('hadiah', 'Zonk')->count() : 0;
         //total user uniq bermain
         $uniq = (count($Result)) ? count($Result->groupBy('no_telp')) : 0;
 

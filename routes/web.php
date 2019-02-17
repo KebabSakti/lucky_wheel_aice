@@ -37,6 +37,8 @@ Route::group(['middleware' => 'app_auth'], function(){
     Route::resource('produk', 'ProdukResourceController');
     //android user resource
     Route::resource('user/android', 'AndroUserResourceController');
+    //promo
+    Route::resource('banner', 'PromoResourceController');
 
     //utilities
     Route::match(['get','post'], 'utilities/produk/get', ['uses' => 'UtilitiesController@getDaftarProduk', 'as' => 'utilities.get_produk']);

@@ -15,15 +15,20 @@ class PromoController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $Promotion = new Promotion;
-        $getPromotion = $Promotion::select('urutan','file')
-                                  ->orderBy('urutan','asc')
-                                  ->get();
+        $Promotion = Promotion::select('file')->where('is_active', 1)->first();
+
+        if($Promotion != null){
+            $status = true;
+            $data = $Promotion;
+        }else{
+            $status = false;
+            $data = '';
+        }
 
         return response()->json([
-            'return' => true,
+            'status' => $status,
             'message' => '',
-            'data' => $getPromotion
+            'data' => $data
         ]);
     }
 }
