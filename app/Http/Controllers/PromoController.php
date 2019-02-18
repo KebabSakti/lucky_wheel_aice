@@ -19,7 +19,7 @@ class PromoController extends Controller
 
         if($Promotion != null){
             $status = true;
-            $data = $Promotion;
+            $data = array('file' => asset('ads/'.$Promotion['file']));
         }else{
             $status = false;
             $data = '';

@@ -38,9 +38,9 @@
                                 @foreach($banner as $k)
                                     <tr class="tr-shadow">
                                         <td>
-                                            <a href="{{asset('ads/ads.png')}}" target="_blank">{{asset('ads/ads.png')}}</a>
+                                            <a href="{{asset('ads/'.$k['file'])}}" target="_blank">{{asset('ads/'.$k['file'])}}</a>
                                         </td>
-                                        <td>{{($k['is_active'] == 0) ? 'Aktif':'Tidak'}}</td>
+                                        <td>{{($k['is_active'] == 1) ? 'Aktif':'Tidak'}}</td>
                                         <td>
                                             <div class="table-data-feature">
 

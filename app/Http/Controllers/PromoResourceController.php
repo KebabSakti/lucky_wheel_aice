@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Promotion;
+use Carbon\Carbon;
 
 class PromoResourceController extends Controller
 {
@@ -37,7 +38,30 @@ class PromoResourceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validation = $request->validate([
+            'url' => 'required'
+        ]);
+
+        //set semua banner aktif ke non
+        if(!empty($request->is_aktif)){
+            Promotion::where('is_active', '=', 1)->update(['is_active' => 0]);
+
+            $aktif = 1;
+        }else{
+            $aktif = 0;
+        }
+
+        //simpan gambar
+        $fileName = Carbon::now()->timestamp.uniqid() . '.' . $request->file('url')->getClientOriginalExtension();
+        $file = $request->file('url')->move('../public/ads/', $fileName);
+        $url = $fileName;
+
+        $Promo = new Promotion;
+        $Promo->file = $url;
+        $Promo->is_active = $aktif;
+        $Promo->save();
+
+        return redirect()->back()->with('alert','Berhasil. Banner telah ditambahkan');
     }
 
     /**
@@ -73,7 +97,30 @@ class PromoResourceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $Promo = Promotion::where('id', $id)->first();
+
+        //hapus file
+        unlink('../public/ads/'.$Promo['file']);
+
+        //set semua banner aktif ke non
+        if(!empty($request->is_aktif)){
+            Promotion::where('is_active', '=', 1)->update(['is_active' => 0]);
+
+            $aktif = 1;
+        }else{
+            $aktif = 0;
+        }
+
+        //simpan file baru
+        $fileName = Carbon::now()->timestamp.uniqid() . '.' . $request->file('url')->getClientOriginalExtension();
+        $file = $request->file('url')->move('../public/ads/', $fileName);
+        $url = $fileName;
+
+        $Promo->file = $url;
+        $Promo->is_active = $aktif;
+        $Promo->save();
+
+        return redirect()->back()->with('alert','Berhasil. Banner telah diganti');
     }
 
     /**
@@ -84,6 +131,13 @@ class PromoResourceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Promo = Promotion::where('id', $id)->first();
+        //hapus file
+        unlink('../public/ads/'.$Promo['file']);
+
+        //hapus dari db
+        Promotion::where('id', $id)->first()->forceDelete();
+
+        return redirect()->back()->with('alert','Berhasil. Produk telah di hapus');
     }
 }

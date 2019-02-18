@@ -105,7 +105,7 @@
                         </li>
                         <li class="my-nav @yield('nav-banner')">
                             <a class="js-arrow" href="{{ route('banner.index') }}">
-                                <i class="fas fa-adversal"></i>Banner</a>
+                                <i class="fas fa-delicious"></i>Banner</a>
                         </li>
                         <li>
                             <a href="#">
@@ -167,7 +167,7 @@
                         </li>
                         <li class="my-nav @yield('nav-banner')">
                             <a class="js-arrow" href="{{ route('banner.index') }}">
-                                <i class="fas fa-adversal"></i>Banner</a>
+                                <i class="fas fa-file"></i>Banner</a>
                         </li>
                         <li>
                             <a class="js-arrow" href="#">
