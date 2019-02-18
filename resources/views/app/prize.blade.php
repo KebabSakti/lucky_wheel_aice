@@ -50,7 +50,7 @@
                                             @foreach($k['prizes'] as $p)
 
                                                 @php
-                                                    $kode[] = $p['product']['nama'];
+                                                    $kode[] = $p['product']['nama'].' ('.$p['prize_stock'].')';
                                                 @endphp
 
                                             @endforeach

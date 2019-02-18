@@ -15,11 +15,12 @@ class PrizeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $Prize = Prize::select('kode_asset','kode_produk')
-                                ->where('kode_asset', $request->kode_asset)
-                                ->with(['product' => function($query){
-                                    $query->select('kode','nama');
-                                }])->get();
+        $Prize = Prize::select('kode_asset','kode_produk','prize_stock')
+                      ->where('kode_asset', $request->kode_asset)
+                      ->where('prize_stock', '>', 0)
+                      ->with(['product' => function($query){
+                        $query->select('kode','nama');
+                      }])->get();
 
         if(count($Prize) > 0){
             $return = true;
@@ -27,7 +28,7 @@ class PrizeController extends Controller
             $data = $Prize;
         }else{
             $return = false;
-            $message = 'Hadiah untuk outlet anda belum di set';
+            $message = 'Hadiah untuk outlet anda belum di set atau stok hadiah habis';
             $data = '';
         }
 
