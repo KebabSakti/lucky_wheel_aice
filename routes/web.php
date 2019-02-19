@@ -27,6 +27,10 @@ Route::group(['middleware' => 'app_auth'], function(){
 	Route::get('prize/create', ['uses' => 'PrizeSettingController@create', 'as' => 'app.create']);
 	//add setting
 	Route::post('/prize/add', ['uses' => 'PrizeSettingController@add', 'as' => 'app.addPrize']);
+	//edit setting
+	Route::get('/prize/{id}/edit', ['uses' => 'PrizeSettingController@edit', 'as' => 'app.edit']);
+	//update setting
+	Route::patch('/prize/{id}', ['uses' => 'PrizeSettingController@edit', 'as' => 'app.update']);
 	//del setting
 	Route::delete('/prize/delete', ['uses' => 'PrizeSettingController@delete', 'as' => 'app.delPrize']);
 	//outlet resource

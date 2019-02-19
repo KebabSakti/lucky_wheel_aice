@@ -25,18 +25,12 @@ class PrizeSettingController extends Controller
 
         $Product = Product::where('is_prize', 1)->get();
 
-        //dd($data->toArray()[0]['prizes']);
-
     	return view('app.prize', [
             'data' => $data->toArray(), 
             'pDetail' => $pDetail->toArray(),
             'outlet' => $Outlet->toArray(), 
             'product' => $Product->toArray()
         ]);
-        
-
-        //dd($pDetail->toArray()[0]->total / 12 * 100);
-        
     }
 
     public function create(){
@@ -78,7 +72,40 @@ class PrizeSettingController extends Controller
         }
 
         return redirect()->back()->with('alert', 'Berhasil. Setting hadiah ditambahkan');
+    }
+
+    public function edit($id){
+
+        $Outlet = Outlet::where('kode_asset', $id)->get();
+        $Prize = Prize::where('kode_asset', $id)->with('product')->get();
         
+        return view('app.edit', [
+            'outlet' => $Outlet->toArray(), 
+            'prize' => $Prize->toArray()
+        ]);
+    }
+
+    public function update(Request $request, $id){
+        
+        $validation = $request->validate([
+            'kode_asset' => 'required',
+            'kode_produk' => 'required',
+            'prize_stock' => 'required'
+        ]);
+
+        //maksimal 11 item sebagai hadiah
+        if(count($request->kode_produk) > 11){
+            return redirect()->back()->with('alert', 'Gagal. Maksimal 11 item');
+        }
+
+        //simpan setting
+        for($i=0; $i<count($request->kode_produk); $i++){
+            $Prize = Prize::where('kode_asset', $id)->first();
+            $Prize->prize_stock = $request->prize_stock[$i];
+            $Prize->save();
+        }
+
+        return redirect()->back()->with('alert', 'Berhasil. Setting hadiah ditambahkan');
     }
 
     public function delete(Request $request){

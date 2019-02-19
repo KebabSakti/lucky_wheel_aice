@@ -69,10 +69,10 @@
                                                 <button class="item" data-toggle="tooltip" data-placement="top" title="Detail">
                                                     <i class="zmdi zmdi-info text-primary"></i>
                                                 </button>
-                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                    <i class="zmdi zmdi-edit text-warning"></i>
-                                                </button>
                                                 -->
+                                                <a href="#" class="item ajax-btn" data-toggle="tooltip" data-placement="top" title="Edit" data-ajx-action="{{route('app.edit', ['id' => $k['kode_asset']])}}" data-ajx-title="Edit Hadiah">
+                                                    <i class="zmdi zmdi-edit text-warning"></i>
+                                                </a>
                                                 <form action="{{route('app.delPrize')}}" method="POST">
                                                     @method('DELETE')
                                                     @csrf
