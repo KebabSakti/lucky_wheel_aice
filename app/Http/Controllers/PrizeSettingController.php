@@ -25,6 +25,8 @@ class PrizeSettingController extends Controller
 
         $Product = Product::where('is_prize', 1)->get();
 
+        //dd($data->toArray());
+
     	return view('app.prize', [
             'data' => $data->toArray(), 
             'pDetail' => $pDetail->toArray(),
@@ -85,7 +87,7 @@ class PrizeSettingController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request){
         
         $validation = $request->validate([
             'kode_asset' => 'required',
@@ -98,9 +100,14 @@ class PrizeSettingController extends Controller
             return redirect()->back()->with('alert', 'Gagal. Maksimal 11 item');
         }
 
+        //hapus dulu
+        Prize::where('kode_asset', $request->kode_asset)->forceDelete();
+
         //simpan setting
         for($i=0; $i<count($request->kode_produk); $i++){
-            $Prize = Prize::where('kode_asset', $id)->first();
+            $Prize = new Prize;
+            $Prize->kode_asset = $request->kode_asset;
+            $Prize->kode_produk = $request->kode_produk[$i];
             $Prize->prize_stock = $request->prize_stock[$i];
             $Prize->save();
         }

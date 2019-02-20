@@ -8,7 +8,7 @@ use App\Product;
 class ProductController extends Controller
 {
     public function all(Request $request){
-    	$Product = Product::all();
+    	$Product = Product::where('is_prize', 0)->get();
 
     	if(count($Product)){
     		$return = true;

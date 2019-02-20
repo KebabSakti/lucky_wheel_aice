@@ -4,32 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Product;
 
 class TestController extends Controller
 {
-    /*
-	var $request;
-
-	public function __construct(){
-		$this->request = new Request;
-	}
-    */
 
     public function base(Request $request){
+       
+        $Product = Product::where('is_prize', 0)->get();
 
-        /*
-    	$fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $request->file('pics')->getClientOriginalExtension();
-    	$file = $request->file('pics')->move(public_path('images'), $fileName);
+        if(count($Product)){
+            $return = true;
+            $message = '';
+            $data = $Product;
+        }else{
+            $return = false;
+            $message = 'Data produk belum ada';
+            $data = '';
+        }
 
-    	return response()->json([
-    		'return' => true,
-    		'data' => asset('images/'.$fileName)
-    	]);
-        */
-
-        return response()->json([
-            'message' => public_path()
-        ]);
-
+        dd($Product);
     }
 }

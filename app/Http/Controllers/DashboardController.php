@@ -27,29 +27,43 @@ class DashboardController extends Controller
         )->where('kode_asset', $request->kode_asset)
          ->get();
 
-        //total game dimainkan
-        $played = (count($Result)) ? count($Result->groupBy('session')) : 0;
-        //total spin
-        $spin = (count($Result)) ? $Result->where('drawn', '>', 0)->count() : 0;
-        //total win
-        $win = (count($Result)) ? $Result->whereNotIn('hadiah', ['Zonk',''])->count() : 0;
-        //total lost
-        $lost = (count($Result)) ? $Result->where('hadiah', 'Zonk')->count() : 0;
-        //total user uniq bermain
-        $uniq = (count($Result)) ? count($Result->groupBy('no_telp')) : 0;
+         if(count($Result)){
 
-        //return data as array
-        $data = array(
-            'played' => $played,
-            'spin' => $spin,
-            'win' => $win,
-            'lost' => $lost,
-            'prize' => $win,
-            'uniq' => $uniq
-        );
+            //total game dimainkan
+            $played = (count($Result)) ? count($Result->groupBy('session')) : 0;
+            //total spin
+            $spin = (count($Result)) ? $Result->where('drawn', '>', 0)->count() : 0;
+            //total win
+            $win = (count($Result)) ? $Result->whereNotIn('hadiah', ['Zonk',''])->count() : 0;
+            //total lost
+            $lost = (count($Result)) ? $Result->where('hadiah', 'Zonk')->count() : 0;
+            //total user uniq bermain
+            $uniq = (count($Result)) ? count($Result->groupBy('no_telp')) : 0;
+
+            $status = true;
+            //return data as array
+            $data = array(
+                'played' => $played,
+                'spin' => $spin,
+                'win' => $win,
+                'lost' => $lost,
+                'prize' => $win,
+                'uniq' => $uniq
+            );
+        }else{
+            $status = true;
+            $data = array(
+                'played' => 0,
+                'spin' => 0,
+                'win' => 0,
+                'lost' => 0,
+                'prize' => 0,
+                'uniq' => 0
+            );
+        }
 
         return response()->json([
-            'status' => true,
+            'status' => $status,
             'message' => '',
             'data' => $data
         ]);

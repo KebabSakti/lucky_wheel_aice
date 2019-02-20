@@ -113,7 +113,7 @@ class GameController extends Controller
                     $q->from('products')
                       ->select('kode')
                       ->where('nama', $hadiah);
-                    })->first();
+                    })->where('kode_asset', $Result->kode_asset)->first();
 
                     $Prize->prize_stock -= 1;
                     $Prize->save();

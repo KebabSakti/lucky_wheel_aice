@@ -30,7 +30,7 @@ Route::group(['middleware' => 'app_auth'], function(){
 	//edit setting
 	Route::get('/prize/{id}/edit', ['uses' => 'PrizeSettingController@edit', 'as' => 'app.edit']);
 	//update setting
-	Route::patch('/prize/{id}', ['uses' => 'PrizeSettingController@edit', 'as' => 'app.update']);
+	Route::patch('/prize/update', ['uses' => 'PrizeSettingController@update', 'as' => 'app.update']);
 	//del setting
 	Route::delete('/prize/delete', ['uses' => 'PrizeSettingController@delete', 'as' => 'app.delPrize']);
 	//outlet resource
@@ -71,4 +71,4 @@ Route::group(['prefix' => 'api', 'middleware' => 'api_token'], function(){
 	Route::post('game/play', 'GameController@play');
 });
 
-Route::post('test', 'TestController@base');
+Route::get('test', 'TestController@base');

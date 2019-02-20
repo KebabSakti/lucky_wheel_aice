@@ -17,7 +17,6 @@ class PrizeController extends Controller
     {
         $Prize = Prize::select('kode_asset','kode_produk','prize_stock')
                       ->where('kode_asset', $request->kode_asset)
-                      ->where('prize_stock', '>', 0)
                       ->with(['product' => function($query){
                         $query->select('kode','nama');
                       }])->get();

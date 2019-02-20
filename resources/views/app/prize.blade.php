@@ -49,18 +49,8 @@
                                         <td>
                                             @foreach($k['prizes'] as $p)
 
-                                                @php
-                                                    $kode[] = $p['product']['nama'].' ('.$p['prize_stock'].')';
-                                                @endphp
+                                                <span class="block-email" style="margin-bottom: 3px;">{{$p['product']['nama'].' ('.$p['prize_stock'].')'}}</span>
 
-                                            @endforeach
-
-                                            @php
-                                                $kode = array_unique($kode);
-                                            @endphp
-
-                                            @foreach($kode as $z)
-                                                <span class="block-email" style="margin-bottom: 3px;">{{$z}}</span>
                                             @endforeach
                                         </td>
                                         <td>
