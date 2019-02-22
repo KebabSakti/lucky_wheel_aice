@@ -18,7 +18,7 @@
                         <h3 class="title-5 m-b-35">Laporan Outlet</h3>
                     </div>
                     <div class="table-responsive table-responsive-data2">
-                        <table class="table table-data2 table-striped table-bordered">
+                        <table class="table table-data2 table-striped table-bordered dt">
                             <thead>
                             <tr>
                                 <th>Outlet</th>
@@ -40,12 +40,12 @@
                             @else
                                 @foreach($outlet as $outlet)
                                     <tr class="tr-shadow">
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{$outlet['nama_toko']}}</td>
+                                        <td>{{$outlet['main']}}</td>
+                                        <td>{{$outlet['kustomer']}}</td>
+                                        <td>{{$outlet['spin']}}</td>
+                                        <td>{{$outlet['menang']}}</td>
+                                        <td>{{$outlet['kalah']}}</td>
                                         <td>
                                             <div class="table-data-feature">
 
@@ -70,6 +70,16 @@
                             @endif
 
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Total</th>
+                                    <td class="text-success" style="padding-left: 35px;">{{$total['main']}}</td>
+                                    <td class="text-success" style="padding-left: 35px;">{{$total['kustomer']}}</td>
+                                    <td class="text-success" style="padding-left: 35px;">{{$total['spin']}}</td>
+                                    <td class="text-success" style="padding-left: 35px;">{{$total['menang']}}</td>
+                                    <td class="text-success" style="padding-left: 35px;">{{$total['kalah']}}</td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
