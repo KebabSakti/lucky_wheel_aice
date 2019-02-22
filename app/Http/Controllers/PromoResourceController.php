@@ -99,8 +99,14 @@ class PromoResourceController extends Controller
     {
         $Promo = Promotion::where('id', $id)->first();
 
+        //lokasi file
+        $file_path = '../public/ads/'.$Promo['file'];
         //hapus file
-        unlink('../public/ads/'.$Promo['file']);
+        if(file_exists($file_path)){
+            unlink($file_path);
+        }
+
+        //unlink('../public/ads/'.$Promo['file']);
 
         //set semua banner aktif ke non
         if(!empty($request->is_aktif)){
@@ -132,8 +138,16 @@ class PromoResourceController extends Controller
     public function destroy($id)
     {
         $Promo = Promotion::where('id', $id)->first();
+
+        //lokasi file
+        $file_path = '../public/ads/'.$Promo['file'];
         //hapus file
-        unlink('../public/ads/'.$Promo['file']);
+        if(file_exists($file_path)){
+            unlink($file_path);
+        }
+
+        //hapus file
+        //unlink('../public/ads/'.$Promo['file']);
 
         //hapus dari db
         Promotion::where('id', $id)->first()->forceDelete();

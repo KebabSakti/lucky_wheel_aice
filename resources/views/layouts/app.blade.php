@@ -84,6 +84,11 @@
                         <li class="my-nav @yield('nav-game')">
                             <a href="#">
                                 <i class="fas fa-chart-bar"></i>Game</a>
+                                <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                                    <li class="my-nav @yield('nav-lap-outlet')">
+                                        <a href="{{route('laporan.outlet')}}">Laporan Outlet</a>
+                                    </li>
+                                </ul>
                         </li>
                         <li class="my-nav @yield('nav-produk')">
                             <a href="{{route('produk.index')}}">
@@ -144,8 +149,13 @@
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
                         <li class="my-nav @yield('nav-game')">
-                            <a href="#">
+                            <a class="js-arrow" href="#">
                                 <i class="fas fa-chart-bar"></i>Game</a>
+                                <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                                    <li class="my-nav @yield('nav-lap-outlet')">
+                                        <a href="{{route('laporan.outlet')}}">Laporan Outlet</a>
+                                    </li>
+                                </ul>
                         </li>
                         <li class="my-nav @yield('nav-produk')">
                             <a href="{{route('produk.index')}}">

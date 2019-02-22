@@ -44,6 +44,9 @@ Route::group(['middleware' => 'app_auth'], function(){
     //promo
     Route::resource('banner', 'PromoResourceController');
 
+    //laporan outlet
+    Route::get('laporan/outlet', ['uses' => 'LaporanController@outlet', 'as' => 'laporan.outlet']);
+
     //utilities
     Route::match(['get','post'], 'utilities/produk/get', ['uses' => 'UtilitiesController@getDaftarProduk', 'as' => 'utilities.get_produk']);
 });
