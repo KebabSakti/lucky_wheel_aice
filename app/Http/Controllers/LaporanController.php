@@ -35,16 +35,6 @@ class LaporanController extends Controller
             $i++;
     	}
 
-        /*
-        foreach ($o as $o) {
-            $total_main[] = $o['main'];
-            $total_kustomer[] = $o['kustomer'];
-            $total_spin[] = $o['spin'];
-            $total_menang[] = $o['menang'];
-            $total_kalah[] = $o['kalah'];
-        }
-        */
-
         $total = array(
             'main' => array_sum($total_main),
             'kustomer' => array_sum($total_kustomer),

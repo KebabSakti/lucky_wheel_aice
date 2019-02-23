@@ -44,40 +44,7 @@ $(function(){
 		var winPercentage = $('.win-percentage');
 
 		$(this).parent().parent().remove();
-
-		//winPercentage.text(getPercentageValue());
 	});
-
-	/*
-	$('body').on('keyup change', '.prize-percent', function(e){
-		var element = $(this);
-		var winPercentage = $('.win-percentage');
-		var percentageValue = getPercentageValue();
-
-		if(percentageValue > 100){
-			alert('Persentase kemenangan tidak boleh melebihi 100%');
-			winPercentage.text(100);
-		}else{
-			winPercentage.text(percentageValue);
-		}
-	});
-
-	function getPercentageValue(){
-		percentage = [];
-
-		$('.prize-percent').each(function(){
-			percentage.push(parseInt($(this).val()));
-		});
-
-		if(percentage.length > 0){
-			percentageValue = percentage.reduce(function(t,n){return t+n});
-		}else{
-			percentageValue = 0;
-		}
-
-		return percentageValue;
-	}
-	*/
 
 	//auto dismiss alert msg
 	if($('.alert').length > 0){
@@ -130,6 +97,13 @@ $(function(){
 	        	'copy', 'excel', 'pdf','print'
 	    	]
 	    });
+    }
+
+    if($('.dr').length > 0){
+    	$('.dr').daterangepicker({
+    		startDate : moment().startOf('month').utc('GMT+8').format('DD/MM/YYYY'),
+    		endDate : moment().endOf('month').utc('GMT+8').format('DD/MM/YYYY')
+    	});
     }
 
     function dynaFunction(){

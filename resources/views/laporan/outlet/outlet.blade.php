@@ -17,6 +17,9 @@
                     <div class="overview-wrap">
                         <h3 class="title-5 m-b-35">Laporan Outlet</h3>
                     </div>
+                    <div class="form-group col-4">
+					    <input type="text" class="form-control form-control-sm dr" placeholder="Periode">
+					</div>
                     <div class="table-responsive table-responsive-data2">
                         <table class="table table-data2 table-striped table-bordered dt">
                             <thead>
