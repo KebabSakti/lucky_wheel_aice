@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Outlet;
 use App\Result;
+use Carbon\Carbon;
+use App\Product;
+use App\Customer;
 
 class LaporanController extends Controller
 {
@@ -19,11 +22,13 @@ class LaporanController extends Controller
     		$o[] = array(
                 'kode_asset' => $outlet['kode_asset'],
                 'nama_toko' => $outlet['nama_toko'],
+                'tanggal' => Carbon::createFromFormat('Y-m-d H:i:s', $Result->toArray()[$i]['created_at'])->format('d/m/Y'),
                 'main' => count($Result->groupBy('session')),
                 'kustomer' => count($Result->groupBy('no_telp')),
                 'spin' => $Result->where('drawn', '>', 0)->count(),
                 'menang' => $Result->whereNotIn('hadiah', ['Zonk',''])->count(),
-                'kalah' => $Result->where('hadiah', 'Zonk')->count()
+                'kalah' => $Result->where('hadiah', 'Zonk')->count(),
+                'hadiah' => $Result->whereNotIn('hadiah', ['Zonk',''])->toArray()
             );
 
             $total_main[] = $o[$i]['main'];
@@ -44,5 +49,32 @@ class LaporanController extends Controller
         );
 
         return view('laporan.outlet.outlet', ['outlet' => $o, 'total' => $total]);
+    }
+
+    public function kustomer(){
+        $Customer = Customer::whereHas('results')->get();
+
+        $i=0;
+        foreach ($Customer as $customer) {
+            $Result = Result::where('no_telp', $customer['no_telp'])->get();
+            
+            $o[] = array(
+                'nama' => $customer['nama'],
+                'no_telp' => $customer['no_telp'],
+                'tanggal' => Carbon::createFromFormat('Y-m-d H:i:s', $Result->toArray()[$i]['created_at'])->format('d/m/Y'),
+                'main' => count($Result->groupBy('session')),
+                'kustomer' => count($Result->groupBy('no_telp')),
+                'spin' => $Result->where('drawn', '>', 0)->count(),
+                'menang' => $Result->whereNotIn('hadiah', ['Zonk',''])->count(),
+                'kalah' => $Result->where('hadiah', 'Zonk')->count(),
+                'hadiah' => $Result->whereNotIn('hadiah', ['Zonk',''])->toArray()
+            );
+
+            $i++;
+        }
+
+        dd($o[0]['hadiah']['2']['hadiah']);
+
+        return view('laporan.kustomer.kustomer');
     }
 }

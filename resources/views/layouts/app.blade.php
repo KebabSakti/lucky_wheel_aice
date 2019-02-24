@@ -91,6 +91,9 @@
                                     <li class="my-nav @yield('nav-lap-outlet')">
                                         <a href="{{route('laporan.outlet')}}">Laporan Outlet</a>
                                     </li>
+                                    <li class="my-nav @yield('nav-lap-kustomer')">
+                                        <a href="{{route('laporan.kustomer')}}">Kustomer</a>
+                                    </li>
                                 </ul>
                         </li>
                         <li class="my-nav @yield('nav-produk')">
@@ -157,6 +160,9 @@
                                 <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                                     <li class="my-nav @yield('nav-lap-outlet')">
                                         <a href="{{route('laporan.outlet')}}">Laporan Outlet</a>
+                                    </li>
+                                    <li class="my-nav @yield('nav-lap-kustomer')">
+                                        <a href="{{route('laporan.kustomer')}}">Kustomer</a>
                                     </li>
                                 </ul>
                         </li>
@@ -274,7 +280,7 @@
     <script src="../vendor/select2/select2.min.js"></script>
 
     <!-- datetime picker -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="../vendor/moment/moment.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
     <!-- Data table -->

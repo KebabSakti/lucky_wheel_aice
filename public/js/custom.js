@@ -91,11 +91,37 @@ $(function(){
 
 	//dt init
     if($('.dt').length > 0){
+    	/* Custom filtering function which will search data in column four between two values */
+    	var dtMin = moment().startOf('month').utc('GMT+8').format('DD/MM/YYYY');
+        var dtMax = moment().endOf('month').utc('GMT+8').format('DD/MM/YYYY');
+        var x = parseInt($('.dt').data('rg'));
+
+		$.fn.dataTable.ext.search.push(
+		    function( settings, data, dataIndex ) {
+		        var dte = data[x]; // use data for the age column
+		 
+		        if (dtMax >= dte && dtMin <= dte)
+		        {
+		            return true;
+		        }
+
+		        return false;
+		    }
+		);
+
     	var table = $('.dt').DataTable({
 	    	dom: 'Bfrtip',
 	    	buttons: [
 	        	'copy', 'excel', 'pdf','print'
-	    	]
+	    	],
+	    	"footerCallback": function( tfoot, data, start, end, display ) {
+			    var api = this.api();
+			    $( api.column( 5 ).footer() ).html(
+			        api.column( 5 ).data().reduce( function ( a, b ) {
+			            return parseInt(a) + parseInt(b);
+			        }, 0 )
+			    );
+			  }
 	    });
     }
 
@@ -103,7 +129,13 @@ $(function(){
     	$('.dr').daterangepicker({
     		startDate : moment().startOf('month').utc('GMT+8').format('DD/MM/YYYY'),
     		endDate : moment().endOf('month').utc('GMT+8').format('DD/MM/YYYY')
-    	});
+    	}).on('apply.daterangepicker', function(ev, picker) {
+
+		  dtMin = picker.startDate.format('DD/MM/YYYY');
+		  dtMax = picker.endDate.format('DD/MM/YYYY');
+
+		  table.draw();
+		});
     }
 
     function dynaFunction(){

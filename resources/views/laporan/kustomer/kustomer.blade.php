@@ -24,9 +24,9 @@
                         <table class="table table-data2 table-striped table-bordered dt" data-rg="7">
                             <thead>
                             <tr>
+                                <th>Nama</th>
+                                <th>No. Hp</th>
                                 <th>Outlet</th>
-                                <th>T.Main</th>
-                                <th>T.Kustomer</th>
                                 <th>T.Spin</th>
                                 <th>T.Menang</th>
                                 <th>T.Kalah</th>

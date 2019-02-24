@@ -15,6 +15,10 @@ class Customer extends Model
      * @var array
      */
     protected $fillable = [
-        'no_tlp','nama','sp_prize'
+        'no_telp','nama','sp_prize'
     ];
+
+    public function results(){
+        return $this->hasMany('App\Result','no_telp','no_telp');
+    }
 }
