@@ -48,6 +48,8 @@ Route::group(['middleware' => 'app_auth'], function(){
     Route::get('laporan/outlet', ['uses' => 'LaporanController@outlet', 'as' => 'laporan.outlet']);
     //kustomer
     Route::get('laporan/kustomer', ['uses' => 'LaporanController@kustomer', 'as' => 'laporan.kustomer']);
+    //kustomer detail
+    Route::get('laporan/{no_telp}/kustomer', ['uses' => 'LaporanController@kustomerDetail', 'as' => 'laporan.kustomerDetail']);
 
     //utilities
     Route::match(['get','post'], 'utilities/produk/get', ['uses' => 'UtilitiesController@getDaftarProduk', 'as' => 'utilities.get_produk']);

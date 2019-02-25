@@ -20,4 +20,8 @@ class Result extends Model
     public function customer(){
         return $this->hasMany('App\Customer','no_telp','no_telp');
     }
+
+    public function foto(){
+        return $this->hasOne('App\Foto','session','session');
+    }
 }

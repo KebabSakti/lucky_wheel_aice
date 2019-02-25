@@ -98,7 +98,7 @@ $(function(){
 
 		$.fn.dataTable.ext.search.push(
 		    function( settings, data, dataIndex ) {
-		        var dte = data[x]; // use data for the age column
+		        var dte = data[x]; 
 		 
 		        if (dtMax >= dte && dtMin <= dte)
 		        {

@@ -54,27 +54,31 @@ class LaporanController extends Controller
     public function kustomer(){
         $Customer = Customer::whereHas('results')->get();
 
-        $i=0;
         foreach ($Customer as $customer) {
             $Result = Result::where('no_telp', $customer['no_telp'])->get();
             
             $o[] = array(
                 'nama' => $customer['nama'],
                 'no_telp' => $customer['no_telp'],
-                'tanggal' => Carbon::createFromFormat('Y-m-d H:i:s', $Result->toArray()[$i]['created_at'])->format('d/m/Y'),
+                'tanggal' => Carbon::createFromFormat('Y-m-d H:i:s', $Result->toArray()[0]['created_at'])->format('d/m/Y'),
                 'main' => count($Result->groupBy('session')),
-                'kustomer' => count($Result->groupBy('no_telp')),
                 'spin' => $Result->where('drawn', '>', 0)->count(),
                 'menang' => $Result->whereNotIn('hadiah', ['Zonk',''])->count(),
                 'kalah' => $Result->where('hadiah', 'Zonk')->count(),
                 'hadiah' => $Result->whereNotIn('hadiah', ['Zonk',''])->toArray()
             );
-
-            $i++;
         }
 
-        dd($o[0]['hadiah']['2']['hadiah']);
+        return view('laporan.kustomer.kustomer', ['customer' => $o]);
+    }
 
-        return view('laporan.kustomer.kustomer');
+    public function kustomerDetail($no_telp){
+    	$Result = Result::with('outlet')
+    					->where('no_telp', $no_telp)
+    					->whereNotIn('hadiah', ['Zonk',''])->get();
+
+    	dd($Result->toArray());
+
+    	return view('laporan.kustomer.detail');
     }
 }
